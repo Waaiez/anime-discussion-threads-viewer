@@ -1,4 +1,4 @@
-import { BeakerIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import { ChevronRightIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -35,9 +35,9 @@ export default function RecentThreads() {
 			{isLoading && (
 				<div className='w-full py-5'>
 					<Link href='/threads'>
-						<div className='text-4xl font-semibold text-slate-100 my-5 flex justify-between cursor-pointer'>
+						<div className='text-4xl font-semibold text-slate-100 my-5 flex justify-between cursor-pointer hover:bg-gray-700 rounded-xl py-3'>
 							<span>Recent Threads</span>
-							<ChevronRightIcon className='w-10' />
+							<ChevronRightIcon className='w-10 h-11' />
 						</div>
 					</Link>
 					<ul
@@ -53,9 +53,9 @@ export default function RecentThreads() {
 			{!isLoading && (
 				<div className='w-full my-5'>
 					<Link href='/threads'>
-						<div className='text-4xl font-semibold text-slate-100 my-5 flex justify-between cursor-pointer hover:bg-gray-700 py-3'>
+						<div className='text-4xl font-semibold text-slate-100 my-5 flex justify-between cursor-pointer hover:bg-gray-700 rounded-xl py-3'>
 							<span>Recent Threads</span>
-							<ChevronRightIcon className='w-10' />
+							<ChevronRightIcon className='w-10 h-11' />
 						</div>
 					</Link>
 					<ul

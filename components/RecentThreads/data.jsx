@@ -29,8 +29,8 @@ export default function Data({ post }) {
 
 	let dateCreated = new Date(post.data.created * 1000);
 	return (
-		<li className='relative group cursor-pointer select-none'>
-			<a href={post.data.url}>
+		<li className='relative cursor-pointer select-none'>
+			<a href={post.data.url} className='group'>
 				<div className='block w-full aspect-w-2 aspect-h-3 rounded-lg bg-slate-100 group-hover:ring-2 group-hover:ring-slate-100 overflow-hidden select-none'>
 					<img
 						src={anilistData && anilistData.coverImage.large}
