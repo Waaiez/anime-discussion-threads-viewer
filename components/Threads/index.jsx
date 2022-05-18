@@ -18,7 +18,6 @@ export default function RecentThreads() {
 			.then((res) => res.json())
 			.then((data) => {
 				setData(data);
-				console.warn('data', data);
 			});
 	}, []);
 
@@ -27,12 +26,8 @@ export default function RecentThreads() {
 			let fData = data.data.children.filter(
 				(post) => post.data.link_flair_text === 'Episode'
 			);
-			console.warn('data2', data);
-			console.warn('fdata', fData);
 			setFilteredData(fData);
 			setAllData(fData.slice(0, 8));
-			console.warn('allData1', filteredData);
-			console.warn('allData2', allData);
 			if (allData) setLoading(false);
 		}
 	}, [data]);
@@ -68,7 +63,7 @@ export default function RecentThreads() {
 					</ul>
 				</div>
 			)}
-			{console.warn('allData', allData)}
+
 			{!isLoading && (
 				<div className='w-full my-5'>
 					<Link href='/'>
