@@ -28,19 +28,19 @@ export default function RecentThreads() {
 			);
 			setFilteredData(fData);
 			setAllData(filteredData.slice(0, 8));
-			setTimeout(() => {
-				setLoading(false);
-			}, 2000);
+			if (allData) setLoading(false);
 		}
 	}, [data]);
 
 	const perPage = 8;
 	const [lastPosition, setLastPosition] = useState(perPage);
 	const loadProducts = () => {
-		setAllData((prev) => [
-			...prev,
-			...filteredData.slice(lastPosition, lastPosition + perPage),
-		]);
+		setTimeout(() => {
+			setAllData((prev) => [
+				...prev,
+				...filteredData.slice(lastPosition, lastPosition + perPage),
+			]);
+		}, 500);
 		setLastPosition(lastPosition + perPage);
 	};
 
@@ -63,7 +63,7 @@ export default function RecentThreads() {
 					</ul>
 				</div>
 			)}
-
+			{console.warn('allData', allData)}
 			{!isLoading && (
 				<div className='w-full my-5'>
 					<Link href='/'>
@@ -72,20 +72,18 @@ export default function RecentThreads() {
 							<span>Recent Threads</span>
 						</div>
 					</Link>
-					{allData && (
-						<InfiniteScroll
-							dataLength={allData.length}
-							next={loadProducts}
-							hasMore='true'>
-							<ul
-								role='list'
-								className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 p-1'>
-								{allData.map((post) => (
-									<Data post={post} key={post.data.title} />
-								))}
-							</ul>
-						</InfiniteScroll>
-					)}
+					<InfiniteScroll
+						dataLength={allData.length}
+						next={loadProducts}
+						hasMore='true'>
+						<ul
+							role='list'
+							className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 p-1'>
+							{allData.map((post) => (
+								<Data post={post} key={post.data.title} />
+							))}
+						</ul>
+					</InfiniteScroll>
 				</div>
 			)}
 		</>
