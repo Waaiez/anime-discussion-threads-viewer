@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import useSWR from 'swr';
 
 import SkeletonCard from './../SkeletonCard';
@@ -18,6 +19,30 @@ export default function RecentThreads() {
 		'https://www.reddit.com/user/AutoLovepon.json',
 		fetcher
 	);
+
+	if (error)
+		toast.error(
+			<>
+				<div className='text-lg font-semibold text-black'>
+					Reddit Error
+				</div>
+				<div className='text-lg font-semibold text-black'>
+					There was an error getting data from Reddit
+				</div>
+				<div className='text-lg font-semibold text-black'>
+					Try again in a few minutes
+				</div>
+			</>,
+			{
+				position: 'top-right',
+				autoClose: 5000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+				toastId: 'redditError',
+			}
+		);
 
 	useEffect(() => {
 		if (data) {

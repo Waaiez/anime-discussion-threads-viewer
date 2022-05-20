@@ -23,6 +23,30 @@ export default function RecentThreads() {
 		fetcher
 	);
 
+	if (error)
+		toast.error(
+			<>
+				<div className='text-lg font-semibold text-black'>
+					Reddit Error
+				</div>
+				<div className='text-lg font-semibold text-black'>
+					There was an error getting data from Reddit
+				</div>
+				<div className='text-lg font-semibold text-black'>
+					Try again in a few minutes
+				</div>
+			</>,
+			{
+				position: 'top-right',
+				autoClose: 5000,
+				hideProgressBar: true,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: false,
+				toastId: 'redditError',
+			}
+		);
+
 	useEffect(() => {
 		if (data) {
 			let fData = data.data.children.filter(

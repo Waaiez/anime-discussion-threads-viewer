@@ -1,3 +1,5 @@
+import 'react-toastify/dist/ReactToastify.css';
+
 import '../styles/globals.css';
 
 import Script from 'next/script';

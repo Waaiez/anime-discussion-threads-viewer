@@ -1,6 +1,7 @@
 import moment from 'moment';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import media from '../../lib/anilist-api/queries/media';
 
@@ -22,6 +23,30 @@ export default function Data({ post }) {
 				const data = await media({
 					search: animeData.anime_title,
 				});
+				console.log('anilist', data);
+				if (data.error)
+					toast.error(
+						<>
+							<div className='text-lg font-semibold text-black'>
+								Anilist Error
+							</div>
+							<div className='text-lg font-semibold text-black'>
+								Status Code: {data.error.response.status}
+							</div>
+							<div className='text-lg font-semibold text-black'>
+								Try again in a few minutes
+							</div>
+						</>,
+						{
+							position: 'top-right',
+							autoClose: 5000,
+							hideProgressBar: true,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: false,
+							toastId: 'anilistError',
+						}
+					);
 				setAnilistData(data.Media);
 			}
 		}

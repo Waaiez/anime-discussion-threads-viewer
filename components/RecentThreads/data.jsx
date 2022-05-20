@@ -21,6 +21,29 @@ export default function Data({ post }) {
 				const data = await media({
 					search: animeData.anime_title,
 				});
+				if (data.error)
+					toast.error(
+						<>
+							<div className='text-lg font-semibold text-black'>
+								Anilist Error
+							</div>
+							<div className='text-lg font-semibold text-black'>
+								Status Code: {data.error.response.status}
+							</div>
+							<div className='text-lg font-semibold text-black'>
+								Try again in a few minutes
+							</div>
+						</>,
+						{
+							position: 'top-right',
+							autoClose: 5000,
+							hideProgressBar: true,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: false,
+							toastId: 'anilistError',
+						}
+					);
 				setAnilistData(data.Media);
 			}
 		}
