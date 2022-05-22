@@ -24,13 +24,14 @@ export default function Data({ post }) {
 				const data = await media({
 					search: animeData.anime_title + season,
 				});
-				if (data.error)
-					showToast(
-						'Anilist Error',
-						`Status Code: ${data.error.response.status}`,
-						'anilistError'
-					);
-				setAnilistData(data.Page.media[0]);
+
+				data.error
+					? showToast(
+							'Anilist Error',
+							`Status Code: ${data.error.response.status}`,
+							'anilistError'
+					  )
+					: setAnilistData(data.Page.media[0]);
 			}
 		}
 		search();

@@ -31,14 +31,13 @@ export default function Search() {
 			search: query,
 		});
 
-		if (data.error)
-			showToast(
-				'Anilist Error',
-				`Status Code: ${data.error.response.status}`,
-				'anilistError'
-			);
-
-		setAnilistData(data.Page.media);
+		data.error
+			? showToast(
+					'Anilist Error',
+					`Status Code: ${data.error.response.status}`,
+					'anilistError'
+			  )
+			: setAnilistData(data.Page.media[0]);
 		setIsLoading(false);
 	}
 
