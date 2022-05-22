@@ -3,54 +3,41 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import media from '../../lib/anilist-api/queries/media';
+import showToast from '../../lib/showToast';
 
 export default function Data({ post }) {
 	const [animeData, setAnimeData] = useState(null);
 	const [anilistData, setAnilistData] = useState(null);
+
 	useEffect(() => {
 		Promise.resolve(
 			window.anitomyscript(post.data.title).then((res) => {
 				setAnimeData(res);
 			})
 		);
-	}, []);
+	}, [post.data.title]);
 
 	useEffect(() => {
 		async function search() {
 			if (animeData) {
+				let season = animeData.anime_season || '';
 				const data = await media({
-					search: animeData.anime_title,
+					search: animeData.anime_title + season,
 				});
 				if (data.error)
-					toast.error(
-						<>
-							<div className='text-lg font-semibold text-black'>
-								Anilist Error
-							</div>
-							<div className='text-lg font-semibold text-black'>
-								Status Code: {data.error.response.status}
-							</div>
-							<div className='text-lg font-semibold text-black'>
-								Try again in a few minutes
-							</div>
-						</>,
-						{
-							position: 'top-right',
-							autoClose: 5000,
-							hideProgressBar: true,
-							closeOnClick: true,
-							pauseOnHover: true,
-							draggable: false,
-							toastId: 'anilistError',
-						}
+					showToast(
+						'Anilist Error',
+						`Status Code: ${data.error.response.status}`,
+						'anilistError'
 					);
-				setAnilistData(data.Media);
+				setAnilistData(data.Page.media[0]);
 			}
 		}
 		search();
 	}, [animeData]);
 
 	let dateCreated = new Date(post.data.created * 1000);
+
 	return (
 		<li className='relative cursor-pointer select-none'>
 			<a

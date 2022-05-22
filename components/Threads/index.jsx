@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useSWR from 'swr';
 
+import showToast from './../../lib/showToast';
 import SkeletonCard from './../SkeletonCard';
 import Data from './data';
 
@@ -24,27 +25,10 @@ export default function RecentThreads() {
 	);
 
 	if (error)
-		toast.error(
-			<>
-				<div className='text-lg font-semibold text-black'>
-					Reddit Error
-				</div>
-				<div className='text-lg font-semibold text-black'>
-					There was an error getting data from Reddit
-				</div>
-				<div className='text-lg font-semibold text-black'>
-					Try again in a few minutes
-				</div>
-			</>,
-			{
-				position: 'top-right',
-				autoClose: 5000,
-				hideProgressBar: true,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: false,
-				toastId: 'redditError',
-			}
+		showToast(
+			'Reddit Error',
+			'There was an error getting data from Reddit',
+			'redditError'
 		);
 
 	useEffect(() => {
@@ -75,7 +59,7 @@ export default function RecentThreads() {
 					<span>Recent Threads</span>
 				</div>
 			</Link>
-			<div className='w-full py-5'>
+			<div className='w-full py-3'>
 				<ul
 					role='list'
 					className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'>
