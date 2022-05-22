@@ -7,18 +7,21 @@ import showToast from '../../lib/showToast';
 import SkeletonCard from '../SkeletonCard';
 import Data from './data';
 
-const debounce = (fn, delay) => {
-	let timerId;
+function debounce(func, timeout = 1000) {
+	let timer;
 	return (...args) => {
-		clearTimeout(timerId);
-		timerId = setTimeout(fn, delay, [...args]);
+		clearTimeout(timer);
+		timer = setTimeout(() => {
+			func.apply(this, args);
+		}, timeout);
 	};
-};
+}
 
 export default function Search() {
 	const { isSearching, setIsSearching } = useSearch();
 
 	const prevSearchQuery = useRef();
+	const lastRequest = useRef(null);
 
 	const [searchQuery, setSearchQuery] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -26,9 +29,9 @@ export default function Search() {
 
 	const emptyArray = new Array(4).fill(0);
 
-	async function search(query) {
+	async function search() {
 		const data = await media({
-			search: query,
+			search: searchQuery,
 		});
 
 		data.error
@@ -37,8 +40,8 @@ export default function Search() {
 					`Status Code: ${data.error.response.status}`,
 					'anilistError'
 			  )
-			: setAnilistData(data.Page.media[0]);
-		setIsLoading(false);
+			: searchQuery === lastRequest.current &&
+			  (setAnilistData(data.Page.media), setIsLoading(false));
 	}
 
 	useEffect(() => {
@@ -47,6 +50,8 @@ export default function Search() {
 	}, []);
 
 	useEffect(() => {
+		if (!searchQuery) setAnilistData(null);
+
 		let isSearchingLocal = isSearching;
 
 		searchQuery.length === 0
@@ -55,15 +60,15 @@ export default function Search() {
 
 		!isSearchingLocal ? setIsLoading(false) : setIsLoading(true);
 
+		lastRequest.current = searchQuery;
+
 		if (prevSearchQuery.current !== searchQuery) {
 			if (anilistData) {
 				setAnilistData(null);
 			}
 
-			const fetchData = debounce(() => {
-				search(searchQuery);
-			}, 1000);
-			searchQuery.length !== 0 && fetchData(searchQuery);
+			const fetchData = debounce(() => search());
+			searchQuery.length !== 0 && fetchData();
 		}
 	}, [searchQuery]);
 
@@ -88,6 +93,7 @@ export default function Search() {
 							prevSearchQuery.current = searchQuery;
 							setSearchQuery(e.target.value);
 						}}
+						autoComplete='off'
 					/>
 				</div>
 			</fieldset>
@@ -103,7 +109,6 @@ export default function Search() {
 					className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'>
 					{isLoading &&
 						emptyArray.map((_, i) => <SkeletonCard key={i} />)}
-
 					{!isLoading &&
 						anilistData &&
 						anilistData.map((item) => {
