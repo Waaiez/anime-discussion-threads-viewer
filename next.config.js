@@ -1,12 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	reactStrictMode: true,
+  reactStrictMode: true,
+  images: {
+    domains: ["s4.anilist.co"],
+  },
 };
 
 module.exports = nextConfig;
-
-module.exports = {
-	images: {
-		domains: ['s4.anilist.co'],
-	},
-};
