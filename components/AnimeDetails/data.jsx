@@ -59,7 +59,7 @@ export default function Data({ anilistData }) {
 						</p>
 						<p className='text-slate-200'>
 							{redditData?.map((thread) => (
-								<a href={thread.data.url}>
+								<a key={thread.data.url} href={thread.data.url}>
 									{thread.data.title}
 								</a>
 							))}
