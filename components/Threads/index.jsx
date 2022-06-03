@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 import showToast from './../../lib/showToast';
 import useReddit from '../../hooks/useReddit';
-import SkeletonCard from './../SkeletonCard';
+import SkeletonLoader from '../SkeletonLoader';
 import Data from './data';
 
 const initialState = {
@@ -53,8 +53,6 @@ export default function RecentThreads() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { allPostData, isLoading, isLoadingMoreData, resultsPerPage } = state;
 
-	const emptyArray = new Array(8).fill(0);
-
 	const { data, aData, error } = useReddit(
 		{ type: 'all' },
 		100,
@@ -67,7 +65,7 @@ export default function RecentThreads() {
 			errorStatus: 'There was an error getting data from Reddit',
 			errorId: 'redditError',
 		});
-		console.error('threads page (index) reddit error', error);
+		console.error('threads page reddit error', error);
 	}
 
 	useEffect(() => {
@@ -84,19 +82,18 @@ export default function RecentThreads() {
 
 	return (
 		<>
-			<Link href='/' replace>
+			<Link href='/' replace passHref>
 				<div className='text-4xl font-semibold text-slate-100 my-5 flex py-3 cursor-pointer hover:bg-gray-700 rounded-xl justify-center'>
-					<ChevronLeftIcon className='w-10 h-11' />
+					<div className='w-10 h-full'>
+						<ChevronLeftIcon />
+					</div>
 					<span>Recent Threads</span>
 				</div>
 			</Link>
+
 			<div className='w-full py-3'>
-				<ul
-					role='list'
-					className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'>
-					{isLoading &&
-						emptyArray.map((_, i) => <SkeletonCard key={i} />)}
-				</ul>
+				{isLoading && <SkeletonLoader limit={8} />}
+
 				{!isLoading && (
 					<InfiniteScroll
 						dataLength={allPostData.length}
@@ -116,22 +113,17 @@ export default function RecentThreads() {
 								});
 							}, 3000);
 						}}
-						hasMore='true'>
-						<ul
-							role='list'
-							className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 p-1'>
+						hasMore={true}>
+						<ul className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8 p-1'>
 							{allPostData.map((post) => (
 								<Data
 									post={post}
-									key={post.data.title + post.data.created}
+									key={`${post.data.title}/${post.data.created}/threads`}
 								/>
 							))}
-
-							{isLoadingMoreData &&
-								emptyArray.map((_, i) => (
-									<SkeletonCard key={i} />
-								))}
 						</ul>
+
+						{isLoadingMoreData && <SkeletonLoader limit={8} />}
 					</InfiniteScroll>
 				)}
 			</div>

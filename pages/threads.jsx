@@ -1,5 +1,5 @@
-import { Threads } from "../components";
+import { Threads } from '../components';
 
-export default function Home() {
-  return <Threads />;
+export default function ThreadsPage() {
+	return <Threads />;
 }

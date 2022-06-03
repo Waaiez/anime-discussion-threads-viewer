@@ -1,27 +1,57 @@
-import { request } from "graphql-request";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
+import { request } from 'graphql-request';
+import { useEffect, useRef, useState } from 'react';
+import useSWR from 'swr';
 
-const fetcher = (query, variables) => {
-  return request("https://graphql.anilist.co", query, variables);
-};
+function keepPrevData(useSWRNext) {
+	return (key, fetcher, config) => {
+		const prevDataRef = useRef();
+
+		const swr = useSWRNext(key, fetcher, config);
+
+		useEffect(() => {
+			if (swr.data !== undefined) {
+				prevDataRef.current = swr.data;
+			}
+		}, [swr.data]);
+
+		const dataOrPrevData =
+			swr.data === undefined ? prevDataRef.current : swr.data;
+
+		return Object.assign({}, swr, {
+			data: dataOrPrevData,
+		});
+	};
+}
+
+const fetcher = (query, variables) =>
+	request('https://graphql.anilist.co', query, variables);
 
 export default function useAnilist(query, variables, deps = []) {
-  const [mounted, setMounted] = useState(false);
+	const [mounted, setMounted] = useState(false);
 
-  const { data, isPrev, error } = useSWR(
-    mounted && variables && [query, variables],
-    fetcher,
-    {
-      revalidateIfStale: false,
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
-    }
-  );
+	const { data, error } = useSWR(
+		mounted && variables && [query, variables],
+		fetcher,
+		{
+			revalidateIfStale: false,
+			revalidateOnFocus: false,
+			revalidateOnReconnect: false,
+			use: [keepPrevData],
+			onErrorRetry: (error, revalidate, { retryCount }) => {
+				if (error.response.status === 404) return;
 
-  useEffect(() => {
-    setMounted(true);
-  }, [deps]);
+				if (error.response.status === 429) return;
 
-  return { data, isPrev, error };
+				if (retryCount >= 10) return;
+
+				setTimeout(() => revalidate({ retryCount }), 5000);
+			},
+		}
+	);
+
+	useEffect(() => {
+		setMounted(true);
+	}, [deps]);
+
+	return { data, error };
 }

@@ -1,7 +1,7 @@
 import { RecentThreads, Search } from '../components';
 import { useSearch } from '../context/SearchContext';
 
-export default function Home() {
+export default function HomePage() {
 	const { isSearching } = useSearch();
 	return (
 		<>
