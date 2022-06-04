@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import useReddit from '../../hooks/useReddit';
+import showToast from '../../lib/showToast';
 
 export default function Data({ anilistData }) {
 	const [redditData, setRedditData] = useState(null);
@@ -27,7 +28,7 @@ export default function Data({ anilistData }) {
 
 	return (
 		<div className='flex flex-wrap'>
-			<div className='grow-0 shrink-0 basis-auto w-full md:w-4/12 mb-12 lg:mb-0 md:px-6'>
+			<div className='w-full mb-12 grow-0 shrink-0 basis-auto md:w-4/12 lg:mb-0 md:px-6'>
 				<div className='relative overflow-hidden bg-no-repeat bg-cover rounded-lg shadow-lg aspect-w-2 aspect-h-3'>
 					<Image
 						src={
@@ -35,7 +36,7 @@ export default function Data({ anilistData }) {
 							anilistData?.coverImage.large ||
 							'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mOcv3j9fwYiAOOoQvoqBACcpB1r8c0b1gAAAABJRU5ErkJggg=='
 						}
-						alt={anilistData?.anime_title + ' Image'}
+						alt={`${anilistData?.anime_title} Image`}
 						layout='fill'
 						placeholder='blur'
 						blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mOcv3j9fwYiAOOoQvoqBACcpB1r8c0b1gAAAABJRU5ErkJggg=='
@@ -43,18 +44,18 @@ export default function Data({ anilistData }) {
 				</div>
 			</div>
 
-			<div className='grow-0 shrink-0 basis-auto w-full md:w-8/12 md:px-6'>
+			<div className='w-full grow-0 shrink-0 basis-auto md:w-8/12 md:px-6'>
 				<div className='flex mb-12'>
-					<div className='grow ml-4'>
-						<p className='font-bold mb-1 text-white text-2xl'>
+					<div className='ml-4 grow'>
+						<p className='mb-1 text-2xl font-bold text-white'>
 							{anilistData?.title.romaji}
 						</p>
 					</div>
 				</div>
 
 				<div className='flex mb-12'>
-					<div className='grow ml-4'>
-						<p className='font-bold mb-1 text-white text-2xl'>
+					<div className='ml-4 grow'>
+						<p className='mb-1 text-2xl font-bold text-white'>
 							Threads
 						</p>
 						<p className='text-slate-200'>

@@ -30,7 +30,7 @@ export default function RecentThreads() {
 	return (
 		<>
 			<Link href='/threads' replace passHref>
-				<div className='text-4xl font-semibold text-slate-100 my-5 flex justify-center cursor-pointer hover:bg-gray-700 rounded-xl py-3'>
+				<div className='flex justify-center py-3 my-5 text-4xl font-semibold cursor-pointer text-slate-100 hover:bg-gray-700 rounded-xl'>
 					<span>Recent Threads</span>
 					<div className='w-10 h-full'>
 						<ChevronRightIcon />

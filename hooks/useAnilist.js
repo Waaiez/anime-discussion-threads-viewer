@@ -17,9 +17,7 @@ function keepPrevData(useSWRNext) {
 		const dataOrPrevData =
 			swr.data === undefined ? prevDataRef.current : swr.data;
 
-		return Object.assign({}, swr, {
-			data: dataOrPrevData,
-		});
+		return { ...swr, data: dataOrPrevData };
 	};
 }
 
@@ -37,10 +35,10 @@ export default function useAnilist(query, variables, deps = []) {
 			revalidateOnFocus: false,
 			revalidateOnReconnect: false,
 			use: [keepPrevData],
-			onErrorRetry: (error, revalidate, { retryCount }) => {
-				if (error.response.status === 404) return;
+			onErrorRetry: (revalidate, { retryCount }) => {
+				if (error?.response?.status === 404) return;
 
-				if (error.response.status === 429) return;
+				if (error?.response?.status === 429) return;
 
 				if (retryCount >= 10) return;
 

@@ -32,6 +32,7 @@ export default function Data({ post }) {
 	const { animeData, anilistData } = state;
 
 	useEffect(() => {
+		// eslint-disable-next-line no-undef
 		Promise.resolve(
 			window.anitomyscript(post.data.title).then((res) => {
 				dispatch({ type: 'getAnimeData', payload: { animeData: res } });
@@ -39,7 +40,7 @@ export default function Data({ post }) {
 		);
 	}, []);
 
-	let season = animeData?.anime_season
+	const season = animeData?.anime_season
 		? ` Season ${animeData.anime_season}`
 		: '';
 

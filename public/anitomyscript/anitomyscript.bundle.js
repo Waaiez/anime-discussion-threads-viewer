@@ -4,7 +4,7 @@
   } else if (typeof define === "function" && define.amd) {
     define([], f);
   } else {
-    var g;
+    let g;
     if (typeof window !== "undefined") {
       g = window;
     } else if (typeof global !== "undefined") {
@@ -16,24 +16,25 @@
     }
     g.anitomyscript = f();
   }
-})(function () {
-  var define, module, exports;
+})(() => {
+  let define; let module; let 
+exports;
   return (function () {
     function r(e, n, t) {
       function o(i, f) {
         if (!n[i]) {
           if (!e[i]) {
-            var c = "function" == typeof require && require;
+            const c = typeof require === "function" && require;
             if (!f && c) return c(i, !0);
             if (u) return u(i, !0);
-            var a = new Error("Cannot find module '" + i + "'");
+            const a = new Error(`Cannot find module '${  i  }'`);
             throw ((a.code = "MODULE_NOT_FOUND"), a);
           }
-          var p = (n[i] = { exports: {} });
+          const p = (n[i] = { exports: {} });
           e[i][0].call(
             p.exports,
-            function (r) {
-              var n = e[i][1][r];
+            (r) => {
+              const n = e[i][1][r];
               return o(n || r);
             },
             p,
@@ -47,11 +48,11 @@
         return n[i].exports;
       }
       for (
-        var u = "function" == typeof require && require, i = 0;
+        var u = typeof require === "function" && require, i = 0;
         i < t.length;
         i++
       )
-        o(t[i]);
+        {o(t[i]);}
       return o;
     }
     return r;
@@ -60,46 +61,46 @@
       1: [
         function (require, module, exports) {
           (function (process, __filename, __dirname) {
-            var anitomyscript = (function () {
-              var _scriptDir =
+            const anitomyscript = (function () {
+              let _scriptDir =
                 typeof document !== "undefined" && document.currentScript
                   ? document.currentScript.src
                   : undefined;
               if (typeof __filename !== "undefined")
-                _scriptDir = _scriptDir || __filename;
+                {_scriptDir = _scriptDir || __filename;}
               return function (anitomyscript) {
                 anitomyscript = anitomyscript || {};
 
-                var e;
+                let e;
                 e ||
                   (e =
                     typeof anitomyscript !== "undefined" ? anitomyscript : {});
-                var p = {},
-                  q;
+                let p = {};
+                  let q;
                 for (q in e) e.hasOwnProperty(q) && (p[q] = e[q]);
-                var aa = "./this.program",
-                  t = !1,
-                  u = !1,
-                  ba = !1,
-                  ca = !1,
-                  da = !1;
-                t = "object" === typeof window;
-                u = "function" === typeof importScripts;
+                let aa = "./this.program";
+                  let t = !1;
+                  let u = !1;
+                  let ba = !1;
+                  let ca = !1;
+                  let da = !1;
+                t = typeof window === "object";
+                u = typeof importScripts === "function";
                 ba =
                   (ca =
-                    "object" === typeof process &&
-                    "object" === typeof process.versions &&
-                    "string" === typeof process.versions.node) &&
+                    typeof process === "object" &&
+                    typeof process.versions === "object" &&
+                    typeof process.versions.node === "string") &&
                   !t &&
                   !u;
                 da = !t && !ba && !u;
-                var v = "",
-                  ea,
-                  w,
-                  fa,
-                  ha;
+                let v = "";
+                  let ea;
+                  let w;
+                  let fa;
+                  let ha;
                 if (ba)
-                  (v = __dirname + "/"),
+                  {(v = `${__dirname  }/`),
                     (ea = function (a, b) {
                       fa || (fa = require("fs"));
                       ha || (ha = require("path"));
@@ -112,100 +113,100 @@
                       assert(a.buffer);
                       return a;
                     }),
-                    1 < process.argv.length &&
+                    process.argv.length > 1 &&
                       (aa = process.argv[1].replace(/\\/g, "/")),
                     process.argv.slice(2),
-                    process.on("uncaughtException", function (a) {
+                    process.on("uncaughtException", (a) => {
                       throw a;
                     }),
                     process.on("unhandledRejection", x),
                     (e.inspect = function () {
                       return "[Emscripten Module object]";
-                    });
+                    });}
                 else if (da)
-                  "undefined" != typeof read &&
+                  {typeof read !== "undefined" &&
                     (ea = function (a) {
                       return read(a);
                     }),
                     (w = function (a) {
-                      if ("function" === typeof readbuffer)
-                        return new Uint8Array(readbuffer(a));
+                      if (typeof readbuffer === "function")
+                        {return new Uint8Array(readbuffer(a));}
                       a = read(a, "binary");
-                      assert("object" === typeof a);
+                      assert(typeof a === "object");
                       return a;
                     }),
-                    "undefined" !== typeof print &&
-                      ("undefined" === typeof console && (console = {}),
+                    typeof print !== "undefined" &&
+                      (typeof console === "undefined" && (console = {}),
                       (console.log = print),
                       (console.warn = console.error =
-                        "undefined" !== typeof printErr ? printErr : print));
+                        typeof printErr !== "undefined" ? printErr : print));}
                 else if (t || u)
-                  u
+                  {u
                     ? (v = self.location.href)
                     : document.currentScript &&
                       (v = document.currentScript.src),
                     _scriptDir && (v = _scriptDir),
-                    0 !== v.indexOf("blob:")
+                    v.indexOf("blob:") !== 0
                       ? (v = v.substr(0, v.lastIndexOf("/") + 1))
                       : (v = ""),
                     (ea = function (a) {
-                      var b = new XMLHttpRequest();
+                      const b = new XMLHttpRequest();
                       b.open("GET", a, !1);
                       b.send(null);
                       return b.responseText;
                     }),
                     u &&
                       (w = function (a) {
-                        var b = new XMLHttpRequest();
+                        const b = new XMLHttpRequest();
                         b.open("GET", a, !1);
                         b.responseType = "arraybuffer";
                         b.send(null);
                         return new Uint8Array(b.response);
-                      });
-                var ia = e.print || console.log.bind(console),
-                  y = e.printErr || console.warn.bind(console);
+                      });}
+                const ia = e.print || console.log.bind(console);
+                  const y = e.printErr || console.warn.bind(console);
                 for (q in p) p.hasOwnProperty(q) && (e[q] = p[q]);
                 p = null;
                 e.thisProgram && (aa = e.thisProgram);
-                var z;
+                let z;
                 e.wasmBinary && (z = e.wasmBinary);
-                "object" !== typeof WebAssembly &&
+                typeof WebAssembly !== "object" &&
                   y("no native wasm support detected");
-                var A,
-                  ja = new WebAssembly.Table({
+                let A;
+                  const ja = new WebAssembly.Table({
                     initial: 409,
                     maximum: 409,
                     element: "anyfunc",
-                  }),
-                  ka = !1;
+                  });
+                  let ka = !1;
                 function assert(a, b) {
-                  a || x("Assertion failed: " + b);
+                  a || x(`Assertion failed: ${  b}`);
                 }
-                var la =
-                  "undefined" !== typeof TextDecoder
+                const la =
+                  typeof TextDecoder !== "undefined"
                     ? new TextDecoder("utf8")
                     : void 0;
                 function ma(a, b, c) {
-                  var d = b + c;
+                  let d = b + c;
                   for (c = b; a[c] && !(c >= d); ) ++c;
-                  if (16 < c - b && a.subarray && la)
-                    return la.decode(a.subarray(b, c));
+                  if (c - b > 16 && a.subarray && la)
+                    {return la.decode(a.subarray(b, c));}
                   for (d = ""; b < c; ) {
-                    var f = a[b++];
+                    let f = a[b++];
                     if (f & 128) {
-                      var g = a[b++] & 63;
-                      if (192 == (f & 224))
-                        d += String.fromCharCode(((f & 31) << 6) | g);
+                      const g = a[b++] & 63;
+                      if ((f & 224) == 192)
+                        {d += String.fromCharCode(((f & 31) << 6) | g);}
                       else {
-                        var h = a[b++] & 63;
+                        const h = a[b++] & 63;
                         f =
-                          224 == (f & 240)
+                          (f & 240) == 224
                             ? ((f & 15) << 12) | (g << 6) | h
                             : ((f & 7) << 18) |
                               (g << 12) |
                               (h << 6) |
                               (a[b++] & 63);
-                        65536 > f
+                        f < 65536
                           ? (d += String.fromCharCode(f))
                           : ((f -= 65536),
                             (d += String.fromCharCode(
@@ -221,23 +222,23 @@
                   return a ? ma(B, a, void 0) : "";
                 }
                 function oa(a, b, c, d) {
-                  if (0 < d) {
+                  if (d > 0) {
                     d = c + d - 1;
-                    for (var f = 0; f < a.length; ++f) {
-                      var g = a.charCodeAt(f);
-                      if (55296 <= g && 57343 >= g) {
-                        var h = a.charCodeAt(++f);
+                    for (let f = 0; f < a.length; ++f) {
+                      let g = a.charCodeAt(f);
+                      if (g >= 55296 && g <= 57343) {
+                        const h = a.charCodeAt(++f);
                         g = (65536 + ((g & 1023) << 10)) | (h & 1023);
                       }
-                      if (127 >= g) {
+                      if (g <= 127) {
                         if (c >= d) break;
                         b[c++] = g;
                       } else {
-                        if (2047 >= g) {
+                        if (g <= 2047) {
                           if (c + 1 >= d) break;
                           b[c++] = 192 | (g >> 6);
                         } else {
-                          if (65535 >= g) {
+                          if (g <= 65535) {
                             if (c + 2 >= d) break;
                             b[c++] = 224 | (g >> 12);
                           } else {
@@ -255,30 +256,30 @@
                 }
                 function pa(a) {
                   for (var b = 0, c = 0; c < a.length; ++c) {
-                    var d = a.charCodeAt(c);
-                    55296 <= d &&
-                      57343 >= d &&
+                    let d = a.charCodeAt(c);
+                    d >= 55296 &&
+                      d <= 57343 &&
                       (d =
                         (65536 + ((d & 1023) << 10)) |
                         (a.charCodeAt(++c) & 1023));
-                    127 >= d
+                    d <= 127
                       ? ++b
-                      : (b = 2047 >= d ? b + 2 : 65535 >= d ? b + 3 : b + 4);
+                      : (b = d <= 2047 ? b + 2 : d <= 65535 ? b + 3 : b + 4);
                   }
                   return b;
                 }
-                "undefined" !== typeof TextDecoder &&
+                typeof TextDecoder !== "undefined" &&
                   new TextDecoder("utf-16le");
-                var buffer,
-                  C,
-                  B,
-                  qa,
-                  ra,
-                  D,
-                  E,
-                  sa,
-                  ta,
-                  ua = e.TOTAL_MEMORY || 16777216;
+                let buffer;
+                  let C;
+                  let B;
+                  let qa;
+                  let ra;
+                  let D;
+                  let E;
+                  let sa;
+                  let ta;
+                  let ua = e.TOTAL_MEMORY || 16777216;
                 e.wasmMemory
                   ? (A = e.wasmMemory)
                   : (A = new WebAssembly.Memory({
@@ -287,7 +288,7 @@
                     }));
                 A && (buffer = A.buffer);
                 ua = buffer.byteLength;
-                var G = buffer;
+                const G = buffer;
                 buffer = G;
                 e.HEAP8 = C = new Int8Array(G);
                 e.HEAP16 = qa = new Int16Array(G);
@@ -299,12 +300,12 @@
                 e.HEAPF64 = ta = new Float64Array(G);
                 D[8616] = 5277504;
                 function va(a) {
-                  for (; 0 < a.length; ) {
-                    var b = a.shift();
-                    if ("function" == typeof b) b();
+                  for (; a.length > 0; ) {
+                    const b = a.shift();
+                    if (typeof b === "function") b();
                     else {
-                      var c = b.Ka;
-                      "number" === typeof c
+                      const c = b.Ka;
+                      typeof c === "number"
                         ? void 0 === b.Ca
                           ? e.dynCall_v(c)
                           : e.dynCall_vi(c, b.Ca)
@@ -312,17 +313,17 @@
                     }
                   }
                 }
-                var wa = [],
-                  xa = [],
-                  ya = [],
-                  za = [];
+                const wa = [];
+                  const xa = [];
+                  const ya = [];
+                  const za = [];
                 function Aa() {
-                  var a = e.preRun.shift();
+                  const a = e.preRun.shift();
                   wa.unshift(a);
                 }
-                var H = 0,
-                  Ba = null,
-                  I = null;
+                let H = 0;
+                  let Ba = null;
+                  let I = null;
                 e.preloadedImages = {};
                 e.preloadedAudios = {};
                 function x(a) {
@@ -331,20 +332,20 @@
                   y(a);
                   ka = !0;
                   throw new WebAssembly.RuntimeError(
-                    "abort(" +
-                      a +
-                      "). Build with -s ASSERTIONS=1 for more info."
+                    `abort(${ 
+                      a 
+                      }). Build with -s ASSERTIONS=1 for more info.`
                   );
                 }
                 function Ca() {
-                  var a = J;
+                  const a = J;
                   return String.prototype.startsWith
                     ? a.startsWith("data:application/octet-stream;base64,")
-                    : 0 === a.indexOf("data:application/octet-stream;base64,");
+                    : a.indexOf("data:application/octet-stream;base64,") === 0;
                 }
                 var J = "anitomyscript.wasm";
                 if (!Ca()) {
-                  var Da = J;
+                  const Da = J;
                   J = e.locateFile ? e.locateFile(Da, v) : v + Da;
                 }
                 function Ea() {
@@ -357,34 +358,32 @@
                   }
                 }
                 function Fa() {
-                  return z || (!t && !u) || "function" !== typeof fetch
-                    ? new Promise(function (a) {
+                  return z || (!t && !u) || typeof fetch !== "function"
+                    ? new Promise((a) => {
                         a(Ea());
                       })
                     : fetch(J, { credentials: "same-origin" })
-                        .then(function (a) {
+                        .then((a) => {
                           if (!a.ok)
-                            throw (
-                              "failed to load wasm binary file at '" + J + "'"
-                            );
+                            {throw (
+                              `failed to load wasm binary file at '${  J  }'`
+                            );}
                           return a.arrayBuffer();
                         })
-                        .catch(function () {
-                          return Ea();
-                        });
+                        .catch(() => Ea());
                 }
                 xa.push({
-                  Ka: function () {
+                  Ka () {
                     Ga();
                   },
                 });
-                var Ha = [null, [], []],
-                  Ia = 0;
+                const Ha = [null, [], []];
+                  let Ia = 0;
                 function Ja() {
                   Ia += 4;
                   return D[(Ia - 4) >> 2];
                 }
-                var Ka = {};
+                const Ka = {};
                 function La(a) {
                   switch (a) {
                     case 1:
@@ -396,58 +395,58 @@
                     case 8:
                       return 3;
                     default:
-                      throw new TypeError("Unknown type size: " + a);
+                      throw new TypeError(`Unknown type size: ${  a}`);
                   }
                 }
-                var Ma = void 0;
+                let Ma = void 0;
                 function K(a) {
                   for (var b = ""; B[a]; ) b += Ma[B[a++]];
                   return b;
                 }
-                var L = {},
-                  M = {},
-                  Na = {};
+                const L = {};
+                  const M = {};
+                  const Na = {};
                 function Oa(a) {
                   if (void 0 === a) return "_unknown";
                   a = a.replace(/[^a-zA-Z0-9_]/g, "$");
-                  var b = a.charCodeAt(0);
-                  return 48 <= b && 57 >= b ? "_" + a : a;
+                  const b = a.charCodeAt(0);
+                  return b >= 48 && b <= 57 ? `_${  a}` : a;
                 }
                 function Pa(a, b) {
                   a = Oa(a);
                   return new Function(
                     "body",
-                    "return function " +
-                      a +
-                      '() {\n    "use strict";    return body.apply(this, arguments);\n};\n'
+                    `return function ${ 
+                      a 
+                      }() {\n    "use strict";    return body.apply(this, arguments);\n};\n`
                   )(b);
                 }
                 function Qa(a) {
-                  var b = Error,
-                    c = Pa(a, function (b) {
+                  const b = Error;
+                    const c = Pa(a, function (b) {
                       this.name = a;
                       this.message = b;
                       b = Error(b).stack;
                       void 0 !== b &&
                         (this.stack =
-                          this.toString() +
-                          "\n" +
-                          b.replace(/^Error(:[^\n]*)?\n/, ""));
+                          `${this.toString() 
+                          }\n${ 
+                          b.replace(/^Error(:[^\n]*)?\n/, "")}`);
                     });
                   c.prototype = Object.create(b.prototype);
                   c.prototype.constructor = c;
                   c.prototype.toString = function () {
                     return void 0 === this.message
                       ? this.name
-                      : this.name + ": " + this.message;
+                      : `${this.name  }: ${  this.message}`;
                   };
                   return c;
                 }
-                var N = void 0;
+                let N = void 0;
                 function O(a) {
                   throw new N(a);
                 }
-                var Ra = void 0;
+                let Ra = void 0;
                 function Sa(a) {
                   throw new Ra(a);
                 }
@@ -456,50 +455,50 @@
                     b = c(b);
                     b.length !== a.length &&
                       Sa("Mismatched type converter count");
-                    for (var d = 0; d < a.length; ++d) Q(a[d], b[d]);
+                    for (let d = 0; d < a.length; ++d) Q(a[d], b[d]);
                   }
-                  a.forEach(function (a) {
+                  a.forEach((a) => {
                     Na[a] = b;
                   });
-                  var f = Array(b.length),
-                    g = [],
-                    h = 0;
-                  b.forEach(function (a, b) {
+                  const f = Array(b.length);
+                    const g = [];
+                    let h = 0;
+                  b.forEach((a, b) => {
                     M.hasOwnProperty(a)
                       ? (f[b] = M[a])
                       : (g.push(a),
                         L.hasOwnProperty(a) || (L[a] = []),
-                        L[a].push(function () {
+                        L[a].push(() => {
                           f[b] = M[a];
                           ++h;
                           h === g.length && d(f);
                         }));
                   });
-                  0 === g.length && d(f);
+                  g.length === 0 && d(f);
                 }
                 function Q(a, b, c) {
                   c = c || {};
                   if (!("argPackAdvance" in b))
-                    throw new TypeError(
+                    {throw new TypeError(
                       "registerType registeredInstance requires argPackAdvance"
-                    );
-                  var d = b.name;
+                    );}
+                  const d = b.name;
                   a ||
                     O(
-                      'type "' +
-                        d +
-                        '" must have a positive integer typeid pointer'
+                      `type "${ 
+                        d 
+                        }" must have a positive integer typeid pointer`
                     );
                   if (M.hasOwnProperty(a)) {
                     if (c.Na) return;
-                    O("Cannot register type '" + d + "' twice");
+                    O(`Cannot register type '${  d  }' twice`);
                   }
                   M[a] = b;
                   delete Na[a];
                   L.hasOwnProperty(a) &&
                     ((b = L[a]),
                     delete L[a],
-                    b.forEach(function (a) {
+                    b.forEach((a) => {
                       a();
                     }));
                 }
@@ -515,29 +514,29 @@
                   };
                 }
                 function Ua(a) {
-                  O(a.ea.ha.fa.name + " instance already deleted");
+                  O(`${a.ea.ha.fa.name  } instance already deleted`);
                 }
-                var Va = !1;
+                let Va = !1;
                 function Wa() {}
                 function Xa(a) {
                   --a.count.value;
-                  0 === a.count.value &&
+                  a.count.value === 0 &&
                     (a.ka ? a.la.pa(a.ka) : a.ha.fa.pa(a.ga));
                 }
                 function S(a) {
-                  if ("undefined" === typeof FinalizationGroup)
-                    return (
+                  if (typeof FinalizationGroup === "undefined")
+                    {return (
                       (S = function (a) {
                         return a;
                       }),
                       a
-                    );
-                  Va = new FinalizationGroup(function (a) {
-                    for (var b = a.next(); !b.done; b = a.next())
-                      (b = b.value),
+                    );}
+                  Va = new FinalizationGroup((a) => {
+                    for (let b = a.next(); !b.done; b = a.next())
+                      {(b = b.value),
                         b.ga
                           ? Xa(b)
-                          : console.warn("object already deleted: " + b.ga);
+                          : console.warn(`object already deleted: ${  b.ga}`);}
                   });
                   S = function (a) {
                     Va.register(a, a.ea, a.ea);
@@ -548,30 +547,30 @@
                   };
                   return S(a);
                 }
-                var T = void 0,
-                  Ya = [];
+                let T = void 0;
+                  const Ya = [];
                 function Za() {
                   for (; Ya.length; ) {
-                    var a = Ya.pop();
+                    const a = Ya.pop();
                     a.ea.qa = !1;
-                    a["delete"]();
+                    a.delete();
                   }
                 }
                 function U() {}
-                var $a = {};
+                const $a = {};
                 function ab(a, b, c) {
                   if (void 0 === a[b].ia) {
-                    var d = a[b];
+                    const d = a[b];
                     a[b] = function () {
                       a[b].ia.hasOwnProperty(arguments.length) ||
                         O(
-                          "Function '" +
-                            c +
-                            "' called with an invalid number of arguments (" +
-                            arguments.length +
-                            ") - expects one of (" +
-                            a[b].ia +
-                            ")!"
+                          `Function '${ 
+                            c 
+                            }' called with an invalid number of arguments (${ 
+                            arguments.length 
+                            }) - expects one of (${ 
+                            a[b].ia 
+                            })!`
                         );
                       return a[b].ia[arguments.length].apply(this, arguments);
                     };
@@ -583,13 +582,13 @@
                   e.hasOwnProperty(a)
                     ? ((void 0 === c ||
                         (void 0 !== e[a].ia && void 0 !== e[a].ia[c])) &&
-                        O("Cannot register public name '" + a + "' twice"),
+                        O(`Cannot register public name '${  a  }' twice`),
                       ab(e, a, a),
                       e.hasOwnProperty(c) &&
                         O(
-                          "Cannot register multiple overloads of a function with the same number of arguments (" +
-                            c +
-                            ")!"
+                          `Cannot register multiple overloads of a function with the same number of arguments (${ 
+                            c 
+                            })!`
                         ),
                       (e[a].ia[c] = b))
                     : ((e[a] = b), void 0 !== c && (e[a].fb = c));
@@ -607,55 +606,55 @@
                 }
                 function db(a, b, c) {
                   for (; b !== c; )
-                    b.va ||
+                    {b.va ||
                       O(
-                        "Expected null or instance of " +
-                          c.name +
-                          ", got an instance of " +
-                          b.name
+                        `Expected null or instance of ${ 
+                          c.name 
+                          }, got an instance of ${ 
+                          b.name}`
                       ),
                       (a = b.va(a)),
-                      (b = b.ma);
+                      (b = b.ma);}
                   return a;
                 }
                 function eb(a, b) {
-                  if (null === b)
-                    return this.Da && O("null is not a valid " + this.name), 0;
-                  b.ea || O('Cannot pass "' + V(b) + '" as a ' + this.name);
+                  if (b === null)
+                    {return this.Da && O(`null is not a valid ${  this.name}`), 0;}
+                  b.ea || O(`Cannot pass "${  V(b)  }" as a ${  this.name}`);
                   b.ea.ga ||
                     O(
-                      "Cannot pass deleted object as a pointer of type " +
-                        this.name
+                      `Cannot pass deleted object as a pointer of type ${ 
+                        this.name}`
                     );
                   return db(b.ea.ga, b.ea.ha.fa, this.fa);
                 }
                 function fb(a, b) {
-                  if (null === b) {
-                    this.Da && O("null is not a valid " + this.name);
+                  if (b === null) {
+                    this.Da && O(`null is not a valid ${  this.name}`);
                     if (this.ya) {
                       var c = this.Ra();
-                      null !== a && a.push(this.pa, c);
+                      a !== null && a.push(this.pa, c);
                       return c;
                     }
                     return 0;
                   }
-                  b.ea || O('Cannot pass "' + V(b) + '" as a ' + this.name);
+                  b.ea || O(`Cannot pass "${  V(b)  }" as a ${  this.name}`);
                   b.ea.ga ||
                     O(
-                      "Cannot pass deleted object as a pointer of type " +
-                        this.name
+                      `Cannot pass deleted object as a pointer of type ${ 
+                        this.name}`
                     );
                   !this.xa &&
                     b.ea.ha.xa &&
                     O(
-                      "Cannot convert argument of type " +
-                        (b.ea.la ? b.ea.la.name : b.ea.ha.name) +
-                        " to parameter type " +
-                        this.name
+                      `Cannot convert argument of type ${ 
+                        b.ea.la ? b.ea.la.name : b.ea.ha.name 
+                        } to parameter type ${ 
+                        this.name}`
                     );
                   c = db(b.ea.ga, b.ea.ha.fa, this.fa);
                   if (this.ya)
-                    switch (
+                    {switch (
                       (void 0 === b.ea.ka &&
                         O("Passing raw pointer to smart pointer is illegal"),
                       this.Ta)
@@ -664,10 +663,10 @@
                         b.ea.la === this
                           ? (c = b.ea.ka)
                           : O(
-                              "Cannot convert argument of type " +
-                                (b.ea.la ? b.ea.la.name : b.ea.ha.name) +
-                                " to parameter type " +
-                                this.name
+                              `Cannot convert argument of type ${ 
+                                b.ea.la ? b.ea.la.name : b.ea.ha.name 
+                                } to parameter type ${ 
+                                this.name}`
                             );
                         break;
                       case 1:
@@ -676,36 +675,36 @@
                       case 2:
                         if (b.ea.la === this) c = b.ea.ka;
                         else {
-                          var d = b.clone();
+                          const d = b.clone();
                           c = this.Sa(
                             c,
-                            gb(function () {
-                              d["delete"]();
+                            gb(() => {
+                              d.delete();
                             })
                           );
-                          null !== a && a.push(this.pa, c);
+                          a !== null && a.push(this.pa, c);
                         }
                         break;
                       default:
                         O("Unsupporting sharing policy");
-                    }
+                    }}
                   return c;
                 }
                 function hb(a, b) {
-                  if (null === b)
-                    return this.Da && O("null is not a valid " + this.name), 0;
-                  b.ea || O('Cannot pass "' + V(b) + '" as a ' + this.name);
+                  if (b === null)
+                    {return this.Da && O(`null is not a valid ${  this.name}`), 0;}
+                  b.ea || O(`Cannot pass "${  V(b)  }" as a ${  this.name}`);
                   b.ea.ga ||
                     O(
-                      "Cannot pass deleted object as a pointer of type " +
-                        this.name
+                      `Cannot pass deleted object as a pointer of type ${ 
+                        this.name}`
                     );
                   b.ea.ha.xa &&
                     O(
-                      "Cannot convert argument of type " +
-                        b.ea.ha.name +
-                        " to parameter type " +
-                        this.name
+                      `Cannot convert argument of type ${ 
+                        b.ea.ha.name 
+                        } to parameter type ${ 
+                        this.name}`
                     );
                   return db(b.ea.ga, b.ea.ha.fa, this.fa);
                 }
@@ -716,12 +715,12 @@
                   if (b === c) return a;
                   if (void 0 === c.ma) return null;
                   a = jb(a, b, c.ma);
-                  return null === a ? null : c.Ia(a);
+                  return a === null ? null : c.Ia(a);
                 }
-                var kb = {};
+                const kb = {};
                 function lb(a, b) {
                   for (void 0 === b && O("ptr should not be undefined"); a.ma; )
-                    (b = a.va(b)), (a = a.ma);
+                    {(b = a.va(b)), (a = a.ma);}
                   return kb[b];
                 }
                 function mb(a, b) {
@@ -758,43 +757,43 @@
                 }
                 function X(a, b) {
                   a = K(a);
-                  if (void 0 !== e["FUNCTION_TABLE_" + a])
-                    var c = e["FUNCTION_TABLE_" + a][b];
-                  else if ("undefined" !== typeof FUNCTION_TABLE)
-                    c = FUNCTION_TABLE[b];
+                  if (void 0 !== e[`FUNCTION_TABLE_${  a}`])
+                    {var c = e[`FUNCTION_TABLE_${  a}`][b];}
+                  else if (typeof FUNCTION_TABLE !== "undefined")
+                    {c = FUNCTION_TABLE[b];}
                   else {
-                    c = e["dynCall_" + a];
+                    c = e[`dynCall_${  a}`];
                     void 0 === c &&
-                      ((c = e["dynCall_" + a.replace(/f/g, "d")]),
+                      ((c = e[`dynCall_${  a.replace(/f/g, "d")}`]),
                       void 0 === c &&
-                        O("No dynCall invoker for signature: " + a));
-                    for (var d = [], f = 1; f < a.length; ++f) d.push("a" + f);
+                        O(`No dynCall invoker for signature: ${  a}`));
+                    for (var d = [], f = 1; f < a.length; ++f) d.push(`a${  f}`);
                     f =
-                      "return function " +
-                      ("dynCall_" + a + "_" + b) +
-                      "(" +
-                      d.join(", ") +
-                      ") {\n";
+                      `return function ` +
+                      `dynCall_${  a  }_${  b}` +
+                      `(${ 
+                      d.join(", ") 
+                      }) {\n`;
                     f +=
-                      "    return dynCall(rawFunction" +
-                      (d.length ? ", " : "") +
-                      d.join(", ") +
-                      ");\n";
-                    c = new Function("dynCall", "rawFunction", f + "};\n")(
+                      `    return dynCall(rawFunction${ 
+                      d.length ? ", " : "" 
+                      }${d.join(", ") 
+                      });\n`;
+                    c = new Function("dynCall", "rawFunction", `${f  }};\n`)(
                       c,
                       b
                     );
                   }
-                  "function" !== typeof c &&
+                  typeof c !== "function" &&
                     O(
-                      "unknown function pointer with signature " + a + ": " + b
+                      `unknown function pointer with signature ${  a  }: ${  b}`
                     );
                   return c;
                 }
-                var ob = void 0;
+                let ob = void 0;
                 function pb(a) {
                   a = qb(a);
-                  var b = K(a);
+                  const b = K(a);
                   Y(a);
                   return b;
                 }
@@ -804,10 +803,10 @@
                       M[a] ||
                       (Na[a] ? Na[a].forEach(c) : (d.push(a), (f[a] = !0)));
                   }
-                  var d = [],
-                    f = {};
+                  var d = [];
+                    var f = {};
                   b.forEach(c);
-                  throw new ob(a + ": " + d.map(pb).join([", "]));
+                  throw new ob(`${a  }: ${  d.map(pb).join([", "])}`);
                 }
                 function sb(a, b) {
                   for (var c = [], d = 0; d < a; d++) c.push(D[(b >> 2) + d]);
@@ -815,57 +814,57 @@
                 }
                 function tb(a) {
                   for (; a.length; ) {
-                    var b = a.pop();
+                    const b = a.pop();
                     a.pop()(b);
                   }
                 }
                 function ub(a) {
-                  var b = Function;
+                  const b = Function;
                   if (!(b instanceof Function))
-                    throw new TypeError(
-                      "new_ called with constructor type " +
-                        typeof b +
-                        " which is not a function"
-                    );
-                  var c = Pa(b.name || "unknownFunctionName", function () {});
+                    {throw new TypeError(
+                      `new_ called with constructor type ${ 
+                        typeof b 
+                        } which is not a function`
+                    );}
+                  let c = Pa(b.name || "unknownFunctionName", () => {});
                   c.prototype = b.prototype;
                   c = new c();
                   a = b.apply(c, a);
                   return a instanceof Object ? a : c;
                 }
                 function vb(a, b, c, d, f) {
-                  var g = b.length;
-                  2 > g &&
+                  let g = b.length;
+                  g < 2 &&
                     O(
                       "argTypes array size mismatch! Must at least get return value and 'this' types!"
                     );
-                  var h = null !== b[1] && null !== c,
-                    l = !1;
+                  const h = b[1] !== null && c !== null;
+                    let l = !1;
                   for (c = 1; c < b.length; ++c)
-                    if (null !== b[c] && void 0 === b[c].na) {
+                    {if (b[c] !== null && void 0 === b[c].na) {
                       l = !0;
                       break;
-                    }
-                  var n = "void" !== b[0].name,
-                    k = "",
-                    m = "";
+                    }}
+                  const n = b[0].name !== "void";
+                    let k = "";
+                    let m = "";
                   for (c = 0; c < g - 2; ++c)
-                    (k += (0 !== c ? ", " : "") + "arg" + c),
-                      (m += (0 !== c ? ", " : "") + "arg" + c + "Wired");
+                    {(k += `${c !== 0 ? ", " : ""  }arg${  c}`),
+                      (m += `${c !== 0 ? ", " : ""  }arg${  c  }Wired`);}
                   a =
-                    "return function " +
-                    Oa(a) +
-                    "(" +
-                    k +
-                    ") {\nif (arguments.length !== " +
-                    (g - 2) +
-                    ") {\nthrowBindingError('function " +
-                    a +
-                    " called with ' + arguments.length + ' arguments, expected " +
-                    (g - 2) +
-                    " args!');\n}\n";
+                    `return function ${ 
+                    Oa(a) 
+                    }(${ 
+                    k 
+                    }) {\nif (arguments.length !== ${ 
+                    g - 2 
+                    }) {\nthrowBindingError('function ${ 
+                    a 
+                    } called with ' + arguments.length + ' arguments, expected ${ 
+                    g - 2 
+                    } args!');\n}\n`;
                   l && (a += "var destructors = [];\n");
-                  var r = l ? "destructors" : "null";
+                  const r = l ? "destructors" : "null";
                   k =
                     "throwBindingError invoker fn runDestructors retType classParam".split(
                       " "
@@ -873,47 +872,47 @@
                   d = [O, d, f, tb, b[0], b[1]];
                   h &&
                     (a +=
-                      "var thisWired = classParam.toWireType(" +
-                      r +
-                      ", this);\n");
+                      `var thisWired = classParam.toWireType(${ 
+                      r 
+                      }, this);\n`);
                   for (c = 0; c < g - 2; ++c)
-                    (a +=
-                      "var arg" +
-                      c +
-                      "Wired = argType" +
-                      c +
-                      ".toWireType(" +
-                      r +
-                      ", arg" +
-                      c +
-                      "); // " +
-                      b[c + 2].name +
-                      "\n"),
-                      k.push("argType" + c),
-                      d.push(b[c + 2]);
-                  h && (m = "thisWired" + (0 < m.length ? ", " : "") + m);
+                    {(a +=
+                      `var arg${ 
+                      c 
+                      }Wired = argType${ 
+                      c 
+                      }.toWireType(${ 
+                      r 
+                      }, arg${ 
+                      c 
+                      }); // ${ 
+                      b[c + 2].name 
+                      }\n`),
+                      k.push(`argType${  c}`),
+                      d.push(b[c + 2]);}
+                  h && (m = `thisWired${  m.length > 0 ? ", " : ""  }${m}`);
                   a +=
-                    (n ? "var rv = " : "") +
-                    "invoker(fn" +
-                    (0 < m.length ? ", " : "") +
-                    m +
-                    ");\n";
+                    `${n ? "var rv = " : "" 
+                    }invoker(fn${ 
+                    m.length > 0 ? ", " : "" 
+                    }${m 
+                    });\n`;
                   if (l) a += "runDestructors(destructors);\n";
                   else
-                    for (c = h ? 1 : 2; c < b.length; ++c)
-                      (g = 1 === c ? "thisWired" : "arg" + (c - 2) + "Wired"),
-                        null !== b[c].na &&
+                    {for (c = h ? 1 : 2; c < b.length; ++c)
+                      {(g = c === 1 ? "thisWired" : `arg${  c - 2  }Wired`),
+                        b[c].na !== null &&
                           ((a +=
-                            g + "_dtor(" + g + "); // " + b[c].name + "\n"),
-                          k.push(g + "_dtor"),
-                          d.push(b[c].na));
+                            `${g  }_dtor(${  g  }); // ${  b[c].name  }\n`),
+                          k.push(`${g  }_dtor`),
+                          d.push(b[c].na));}}
                   n &&
                     (a += "var ret = retType.fromWireType(rv);\nreturn ret;\n");
-                  k.push(a + "}\n");
+                  k.push(`${a  }}\n`);
                   return ub(k).apply(null, d);
                 }
-                var wb = [],
-                  Z = [
+                const wb = [];
+                  const Z = [
                     {},
                     { value: void 0 },
                     { value: null },
@@ -921,7 +920,7 @@
                     { value: !1 },
                   ];
                 function xb(a) {
-                  4 < a && 0 === --Z[a].Ea && ((Z[a] = void 0), wb.push(a));
+                  a > 4 && --Z[a].Ea === 0 && ((Z[a] = void 0), wb.push(a));
                 }
                 function gb(a) {
                   switch (a) {
@@ -954,20 +953,20 @@
                         return this.fromWireType((c ? D : E)[a >> 2]);
                       };
                     default:
-                      throw new TypeError("Unknown integer type: " + a);
+                      throw new TypeError(`Unknown integer type: ${  a}`);
                   }
                 }
                 function zb(a, b) {
-                  var c = M[a];
-                  void 0 === c && O(b + " has unknown type " + pb(a));
+                  const c = M[a];
+                  void 0 === c && O(`${b  } has unknown type ${  pb(a)}`);
                   return c;
                 }
                 function V(a) {
-                  if (null === a) return "null";
-                  var b = typeof a;
-                  return "object" === b || "array" === b || "function" === b
+                  if (a === null) return "null";
+                  const b = typeof a;
+                  return b === "object" || b === "array" || b === "function"
                     ? a.toString()
-                    : "" + a;
+                    : `${  a}`;
                 }
                 function Ab(a, b) {
                   switch (b) {
@@ -980,7 +979,7 @@
                         return this.fromWireType(ta[a >> 3]);
                       };
                     default:
-                      throw new TypeError("Unknown float type: " + a);
+                      throw new TypeError(`Unknown float type: ${  a}`);
                   }
                 }
                 function Bb(a, b, c) {
@@ -1010,55 +1009,55 @@
                             return E[a >> 2];
                           };
                     default:
-                      throw new TypeError("Unknown integer type: " + a);
+                      throw new TypeError(`Unknown integer type: ${  a}`);
                   }
                 }
-                var Cb = {};
+                const Cb = {};
                 function Db() {
                   if (!Eb) {
-                    var a = {
+                    const a = {
                         USER: "web_user",
                         LOGNAME: "web_user",
                         PATH: "/",
                         PWD: "/",
                         HOME: "/home/web_user",
                         LANG:
-                          (
-                            ("object" === typeof navigator &&
+                          `${(
+                            (typeof navigator === "object" &&
                               navigator.languages &&
                               navigator.languages[0]) ||
                             "C"
-                          ).replace("-", "_") + ".UTF-8",
+                          ).replace("-", "_")  }.UTF-8`,
                         _: aa,
-                      },
-                      b;
+                      };
+                      let b;
                     for (b in Cb) a[b] = Cb[b];
-                    var c = [];
-                    for (b in a) c.push(b + "=" + a[b]);
+                    const c = [];
+                    for (b in a) c.push(`${b  }=${  a[b]}`);
                     Eb = c;
                   }
                   return Eb;
                 }
-                var Eb;
+                let Eb;
                 function Fb(a) {
-                  return 0 === a % 4 && (0 !== a % 100 || 0 === a % 400);
+                  return a % 4 === 0 && (a % 100 !== 0 || a % 400 === 0);
                 }
                 function Gb(a, b) {
                   for (var c = 0, d = 0; d <= b; c += a[d++]);
                   return c;
                 }
-                var Hb = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-                  Ib = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                const Hb = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                  const Ib = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
                 function Jb(a, b) {
-                  for (a = new Date(a.getTime()); 0 < b; ) {
-                    var c = a.getMonth(),
-                      d = (Fb(a.getFullYear()) ? Hb : Ib)[c];
+                  for (a = new Date(a.getTime()); b > 0; ) {
+                    const c = a.getMonth();
+                      const d = (Fb(a.getFullYear()) ? Hb : Ib)[c];
                     if (b > d - a.getDate())
-                      (b -= d - a.getDate() + 1),
+                      {(b -= d - a.getDate() + 1),
                         a.setDate(1),
-                        11 > c
+                        c < 11
                           ? a.setMonth(c + 1)
-                          : (a.setMonth(0), a.setFullYear(a.getFullYear() + 1));
+                          : (a.setMonth(0), a.setFullYear(a.getFullYear() + 1));}
                     else {
                       a.setDate(a.getDate() + b);
                       break;
@@ -1069,11 +1068,11 @@
                 function Kb(a, b, c, d) {
                   function f(a, b, c) {
                     for (
-                      a = "number" === typeof a ? a.toString() : a || "";
+                      a = typeof a === "number" ? a.toString() : a || "";
                       a.length < b;
 
                     )
-                      a = c[0] + a;
+                      {a = c[0] + a;}
                     return a;
                   }
                   function g(a, b) {
@@ -1081,11 +1080,11 @@
                   }
                   function h(a, b) {
                     function c(a) {
-                      return 0 > a ? -1 : 0 < a ? 1 : 0;
+                      return a < 0 ? -1 : a > 0 ? 1 : 0;
                     }
-                    var d;
-                    0 === (d = c(a.getFullYear() - b.getFullYear())) &&
-                      0 === (d = c(a.getMonth() - b.getMonth())) &&
+                    let d;
+                    (d = c(a.getFullYear() - b.getFullYear())) === 0 &&
+                      (d = c(a.getMonth() - b.getMonth())) === 0 &&
                       (d = c(a.getDate() - b.getDate()));
                     return d;
                   }
@@ -1109,14 +1108,14 @@
                   }
                   function n(a) {
                     a = Jb(new Date(a.ja + 1900, 0, 1), a.Ba);
-                    var b = l(new Date(a.getFullYear() + 1, 0, 4));
-                    return 0 >= h(l(new Date(a.getFullYear(), 0, 4)), a)
-                      ? 0 >= h(b, a)
+                    const b = l(new Date(a.getFullYear() + 1, 0, 4));
+                    return h(l(new Date(a.getFullYear(), 0, 4)), a) <= 0
+                      ? h(b, a) <= 0
                         ? a.getFullYear() + 1
                         : a.getFullYear()
                       : a.getFullYear() - 1;
                   }
-                  var k = D[(d + 40) >> 2];
+                  let k = D[(d + 40) >> 2];
                   d = {
                     Wa: D[d >> 2],
                     Va: D[(d + 4) >> 2],
@@ -1162,11 +1161,11 @@
                     "%Oy": "%y",
                   };
                   for (var m in k) c = c.replace(new RegExp(m, "g"), k[m]);
-                  var r =
+                  const r =
                       "Sunday Monday Tuesday Wednesday Thursday Friday Saturday".split(
                         " "
-                      ),
-                    R =
+                      );
+                    const R =
                       "January February March April May June July August September October November December".split(
                         " "
                       );
@@ -1203,7 +1202,7 @@
                     },
                     "%I": function (a) {
                       a = a.za;
-                      0 == a ? (a = 12) : 12 < a && (a -= 12);
+                      a == 0 ? (a = 12) : a > 12 && (a -= 12);
                       return g(a, 2);
                     },
                     "%j": function (a) {
@@ -1222,7 +1221,7 @@
                       return "\n";
                     },
                     "%p": function (a) {
-                      return 0 <= a.za && 12 > a.za ? "AM" : "PM";
+                      return a.za >= 0 && a.za < 12 ? "AM" : "PM";
                     },
                     "%S": function (a) {
                       return g(a.Wa, 2);
@@ -1234,10 +1233,10 @@
                       return a.Aa || 7;
                     },
                     "%U": function (a) {
-                      var b = new Date(a.ja + 1900, 0, 1),
-                        c = 0 === b.getDay() ? b : Jb(b, 7 - b.getDay());
+                      const b = new Date(a.ja + 1900, 0, 1);
+                        const c = b.getDay() === 0 ? b : Jb(b, 7 - b.getDay());
                       a = new Date(a.ja + 1900, a.sa, a.ua);
-                      return 0 > h(c, a)
+                      return h(c, a) < 0
                         ? g(
                             Math.ceil(
                               (31 -
@@ -1252,17 +1251,17 @@
                             ),
                             2
                           )
-                        : 0 === h(c, b)
+                        : h(c, b) === 0
                         ? "01"
                         : "00";
                     },
                     "%V": function (a) {
-                      var b = l(new Date(a.ja + 1900, 0, 4)),
-                        c = l(new Date(a.ja + 1901, 0, 4)),
-                        d = Jb(new Date(a.ja + 1900, 0, 1), a.Ba);
-                      return 0 > h(d, b)
+                      const b = l(new Date(a.ja + 1900, 0, 4));
+                        const c = l(new Date(a.ja + 1901, 0, 4));
+                        const d = Jb(new Date(a.ja + 1900, 0, 1), a.Ba);
+                      return h(d, b) < 0
                         ? "53"
-                        : 0 >= h(c, d)
+                        : h(c, d) <= 0
                         ? "01"
                         : g(
                             Math.ceil(
@@ -1277,13 +1276,13 @@
                       return a.Aa;
                     },
                     "%W": function (a) {
-                      var b = new Date(a.ja, 0, 1),
-                        c =
-                          1 === b.getDay()
+                      const b = new Date(a.ja, 0, 1);
+                        const c =
+                          b.getDay() === 1
                             ? b
-                            : Jb(b, 0 === b.getDay() ? 1 : 7 - b.getDay() + 1);
+                            : Jb(b, b.getDay() === 0 ? 1 : 7 - b.getDay() + 1);
                       a = new Date(a.ja + 1900, a.sa, a.ua);
-                      return 0 > h(c, a)
+                      return h(c, a) < 0
                         ? g(
                             Math.ceil(
                               (31 -
@@ -1298,7 +1297,7 @@
                             ),
                             2
                           )
-                        : 0 === h(c, b)
+                        : h(c, b) === 0
                         ? "01"
                         : "00";
                     },
@@ -1310,11 +1309,11 @@
                     },
                     "%z": function (a) {
                       a = a.Ua;
-                      var b = 0 <= a;
+                      const b = a >= 0;
                       a = Math.abs(a) / 60;
                       return (
                         (b ? "+" : "-") +
-                        String("0000" + ((a / 60) * 100 + (a % 60))).slice(-4)
+                        String(`0000${  (a / 60) * 100 + (a % 60)}`).slice(-4)
                       );
                     },
                     "%Z": function (a) {
@@ -1325,23 +1324,23 @@
                     },
                   };
                   for (m in k)
-                    0 <= c.indexOf(m) &&
-                      (c = c.replace(new RegExp(m, "g"), k[m](d)));
+                    {c.indexOf(m) >= 0 &&
+                      (c = c.replace(new RegExp(m, "g"), k[m](d)));}
                   m = Lb(c);
                   if (m.length > b) return 0;
                   C.set(m, a);
                   return m.length - 1;
                 }
-                for (var Mb = Array(256), Nb = 0; 256 > Nb; ++Nb)
-                  Mb[Nb] = String.fromCharCode(Nb);
+                for (var Mb = Array(256), Nb = 0; Nb < 256; ++Nb)
+                  {Mb[Nb] = String.fromCharCode(Nb);}
                 Ma = Mb;
                 N = e.BindingError = Qa("BindingError");
                 Ra = e.InternalError = Qa("InternalError");
                 U.prototype.isAliasOf = function (a) {
                   if (!(this instanceof U && a instanceof U)) return !1;
-                  var b = this.ea.ha.fa,
-                    c = this.ea.ga,
-                    d = a.ea.ha.fa;
+                  let b = this.ea.ha.fa;
+                    let c = this.ea.ga;
+                    let d = a.ea.ha.fa;
                   for (a = a.ea.ga; b.ma; ) (c = b.va(c)), (b = b.ma);
                   for (; d.ma; ) (a = d.va(a)), (d = d.ma);
                   return b === d && c === a;
@@ -1349,7 +1348,7 @@
                 U.prototype.clone = function () {
                   this.ea.ga || Ua(this);
                   if (this.ea.ta) return (this.ea.count.value += 1), this;
-                  var a = S(
+                  const a = S(
                     Object.create(Object.getPrototypeOf(this), {
                       ea: { value: Ta(this.ea) },
                     })
@@ -1358,7 +1357,7 @@
                   a.ea.qa = !1;
                   return a;
                 };
-                U.prototype["delete"] = function () {
+                U.prototype.delete = function () {
                   this.ea.ga || Ua(this);
                   this.ea.qa &&
                     !this.ea.ta &&
@@ -1376,7 +1375,7 @@
                     !this.ea.ta &&
                     O("Object already scheduled for deletion");
                   Ya.push(this);
-                  1 === Ya.length && T && T(Za);
+                  Ya.length === 1 && T && T(Za);
                   this.ea.qa = !0;
                   return this;
                 };
@@ -1390,7 +1389,7 @@
                 W.prototype.argPackAdvance = 8;
                 W.prototype.readValueFromPointer = ib;
                 W.prototype.deleteObject = function (a) {
-                  if (null !== a) a["delete"]();
+                  if (a !== null) a.delete();
                 };
                 W.prototype.fromWireType = function (a) {
                   function b() {
@@ -1400,10 +1399,10 @@
                   }
                   var c = this.Ma(a);
                   if (!c) return this.Fa(a), null;
-                  var d = lb(this.fa, c);
+                  let d = lb(this.fa, c);
                   if (void 0 !== d) {
-                    if (0 === d.ea.count.value)
-                      return (d.ea.ga = c), (d.ea.ka = a), d.clone();
+                    if (d.ea.count.value === 0)
+                      {return (d.ea.ga = c), (d.ea.ka = a), d.clone();}
                     d = d.clone();
                     this.Fa(a);
                     return d;
@@ -1412,8 +1411,8 @@
                   d = $a[d];
                   if (!d) return b.call(this);
                   d = this.xa ? d.Ha : d.pointerType;
-                  var f = jb(c, this.fa, d.fa);
-                  return null === f
+                  const f = jb(c, this.fa, d.fa);
+                  return f === null
                     ? b.call(this)
                     : this.ya
                     ? mb(d.fa.ra, { ha: d, ga: f, la: this, ka: a })
@@ -1423,8 +1422,8 @@
                   return Object.keys(kb).length;
                 };
                 e.getLiveInheritedInstances = function () {
-                  var a = [],
-                    b;
+                  const a = [];
+                    let b;
                   for (b in kb) kb.hasOwnProperty(b) && a.push(kb[b]);
                   return a;
                 };
@@ -1436,36 +1435,36 @@
                 ob = e.UnboundTypeError = Qa("UnboundTypeError");
                 e.count_emval_handles = function () {
                   for (var a = 0, b = 5; b < Z.length; ++b)
-                    void 0 !== Z[b] && ++a;
+                    {void 0 !== Z[b] && ++a;}
                   return a;
                 };
                 e.get_first_emval = function () {
-                  for (var a = 5; a < Z.length; ++a)
-                    if (void 0 !== Z[a]) return Z[a];
+                  for (let a = 5; a < Z.length; ++a)
+                    {if (void 0 !== Z[a]) return Z[a];}
                   return null;
                 };
                 function Lb(a) {
-                  var b = Array(pa(a) + 1);
+                  const b = Array(pa(a) + 1);
                   oa(a, b, 0, b.length);
                   return b;
                 }
-                var Pb = {
-                    E: function () {},
-                    z: function () {
+                const Pb = {
+                    E () {},
+                    z () {
                       e.___errno_location &&
                         (D[e.___errno_location() >> 2] = 63);
                       return -1;
                     },
-                    y: function (a, b) {
+                    y (a, b) {
                       Ia = b;
                       try {
-                        var c = Ja();
-                        var d = Ja();
-                        if (-1 === c || 0 === d) var f = -28;
+                        const c = Ja();
+                        const d = Ja();
+                        if (c === -1 || d === 0) var f = -28;
                         else {
-                          var g = Ka.Oa[c];
+                          const g = Ka.Oa[c];
                           if (g && d === g.bb) {
-                            var h = (void 0).$a(g.fd);
+                            const h = (void 0).$a(g.fd);
                             Ka.Za(c, h, d, g.flags);
                             (void 0).eb(h);
                             Ka.Oa[c] = null;
@@ -1478,45 +1477,45 @@
                         return x(l), -l.Ja;
                       }
                     },
-                    k: function () {},
-                    v: function (a, b, c, d, f) {
-                      var g = La(c);
+                    k () {},
+                    v (a, b, c, d, f) {
+                      const g = La(c);
                       b = K(b);
                       Q(a, {
                         name: b,
-                        fromWireType: function (a) {
+                        fromWireType (a) {
                           return !!a;
                         },
-                        toWireType: function (a, b) {
+                        toWireType (a, b) {
                           return b ? d : f;
                         },
                         argPackAdvance: 8,
-                        readValueFromPointer: function (a) {
-                          if (1 === c) var d = C;
-                          else if (2 === c) d = qa;
-                          else if (4 === c) d = D;
+                        readValueFromPointer (a) {
+                          if (c === 1) var d = C;
+                          else if (c === 2) d = qa;
+                          else if (c === 4) d = D;
                           else
-                            throw new TypeError(
-                              "Unknown boolean type size: " + b
-                            );
+                            {throw new TypeError(
+                              `Unknown boolean type size: ${  b}`
+                            );}
                           return this.fromWireType(d[a >> g]);
                         },
                         na: null,
                       });
                     },
-                    g: function (a, b, c, d, f, g, h, l, n, k, m, r, R) {
+                    g (a, b, c, d, f, g, h, l, n, k, m, r, R) {
                       m = K(m);
                       g = X(f, g);
                       l && (l = X(h, l));
                       k && (k = X(n, k));
                       R = X(r, R);
-                      var F = Oa(m);
-                      bb(F, function () {
-                        rb("Cannot construct " + m + " due to unbound types", [
+                      const F = Oa(m);
+                      bb(F, () => {
+                        rb(`Cannot construct ${  m  } due to unbound types`, [
                           d,
                         ]);
                       });
-                      P([a, b, c], d ? [d] : [], function (b) {
+                      P([a, b, c], d ? [d] : [], (b) => {
                         b = b[0];
                         if (d) {
                           var c = b.fa;
@@ -1524,73 +1523,73 @@
                         } else f = U.prototype;
                         b = Pa(F, function () {
                           if (Object.getPrototypeOf(this) !== h)
-                            throw new N("Use 'new' to construct " + m);
+                            {throw new N(`Use 'new' to construct ${  m}`);}
                           if (void 0 === n.oa)
-                            throw new N(m + " has no accessible constructor");
-                          var a = n.oa[arguments.length];
+                            {throw new N(`${m  } has no accessible constructor`);}
+                          const a = n.oa[arguments.length];
                           if (void 0 === a)
-                            throw new N(
-                              "Tried to invoke ctor of " +
-                                m +
-                                " with invalid number of parameters (" +
-                                arguments.length +
-                                ") - expected (" +
-                                Object.keys(n.oa).toString() +
-                                ") parameters instead!"
-                            );
+                            {throw new N(
+                              `Tried to invoke ctor of ${ 
+                                m 
+                                } with invalid number of parameters (${ 
+                                arguments.length 
+                                }) - expected (${ 
+                                Object.keys(n.oa).toString() 
+                                }) parameters instead!`
+                            );}
                           return a.apply(this, arguments);
                         });
                         var h = Object.create(f, { constructor: { value: b } });
                         b.prototype = h;
                         var n = new cb(m, b, h, R, c, g, l, k);
                         c = new W(m, n, !0, !1);
-                        f = new W(m + "*", n, !1, !1);
-                        var r = new W(m + " const*", n, !1, !0);
+                        f = new W(`${m  }*`, n, !1, !1);
+                        const r = new W(`${m  } const*`, n, !1, !0);
                         $a[a] = { pointerType: f, Ha: r };
                         nb(F, b);
                         return [c, f, r];
                       });
                     },
-                    f: function (a, b, c, d, f, g) {
-                      assert(0 < b);
-                      var h = sb(b, c);
+                    f (a, b, c, d, f, g) {
+                      assert(b > 0);
+                      const h = sb(b, c);
                       f = X(d, f);
-                      var l = [g],
-                        n = [];
-                      P([], [a], function (a) {
+                      const l = [g];
+                        const n = [];
+                      P([], [a], (a) => {
                         a = a[0];
-                        var c = "constructor " + a.name;
+                        const c = `constructor ${  a.name}`;
                         void 0 === a.fa.oa && (a.fa.oa = []);
                         if (void 0 !== a.fa.oa[b - 1])
-                          throw new N(
-                            "Cannot register multiple constructors with identical number of parameters (" +
-                              (b - 1) +
-                              ") for class '" +
-                              a.name +
-                              "'! Overload resolution is currently only performed using the parameter count, not actual type info!"
-                          );
+                          {throw new N(
+                            `Cannot register multiple constructors with identical number of parameters (${ 
+                              b - 1 
+                              }) for class '${ 
+                              a.name 
+                              }'! Overload resolution is currently only performed using the parameter count, not actual type info!`
+                          );}
                         a.fa.oa[b - 1] = function () {
                           rb(
-                            "Cannot construct " +
-                              a.name +
-                              " due to unbound types",
+                            `Cannot construct ${ 
+                              a.name 
+                              } due to unbound types`,
                             h
                           );
                         };
-                        P([], h, function (d) {
+                        P([], h, (d) => {
                           a.fa.oa[b - 1] = function () {
                             arguments.length !== b - 1 &&
                               O(
-                                c +
-                                  " called with " +
-                                  arguments.length +
-                                  " arguments, expected " +
-                                  (b - 1)
+                                `${c 
+                                  } called with ${ 
+                                  arguments.length 
+                                  } arguments, expected ${ 
+                                  b - 1}`
                               );
                             n.length = 0;
                             l.length = b;
                             for (var a = 1; a < b; ++a)
-                              l[a] = d[a].toWireType(n, arguments[a - 1]);
+                              {l[a] = d[a].toWireType(n, arguments[a - 1]);}
                             a = f.apply(null, l);
                             tb(n);
                             return d[0].fromWireType(a);
@@ -1600,26 +1599,26 @@
                         return [];
                       });
                     },
-                    c: function (a, b, c, d, f, g, h, l) {
-                      var n = sb(c, d);
+                    c (a, b, c, d, f, g, h, l) {
+                      const n = sb(c, d);
                       b = K(b);
                       g = X(f, g);
-                      P([], [a], function (a) {
+                      P([], [a], (a) => {
                         function d() {
-                          rb("Cannot call " + f + " due to unbound types", n);
+                          rb(`Cannot call ${  f  } due to unbound types`, n);
                         }
                         a = a[0];
-                        var f = a.name + "." + b;
+                        var f = `${a.name  }.${  b}`;
                         l && a.fa.Qa.push(b);
-                        var k = a.fa.ra,
-                          F = k[b];
+                        const k = a.fa.ra;
+                          const F = k[b];
                         void 0 === F ||
                         (void 0 === F.ia &&
                           F.className !== a.name &&
                           F.wa === c - 2)
                           ? ((d.wa = c - 2), (d.className = a.name), (k[b] = d))
                           : (ab(k, b, f), (k[b].ia[c - 2] = d));
-                        P([], n, function (d) {
+                        P([], n, (d) => {
                           d = vb(f, d, a, g, h);
                           void 0 === k[b].ia
                             ? ((d.wa = c - 2), (k[b] = d))
@@ -1629,16 +1628,16 @@
                         return [];
                       });
                     },
-                    t: function (a, b) {
+                    t (a, b) {
                       b = K(b);
                       Q(a, {
                         name: b,
-                        fromWireType: function (a) {
-                          var b = Z[a].value;
+                        fromWireType (a) {
+                          const b = Z[a].value;
                           xb(a);
                           return b;
                         },
-                        toWireType: function (a, b) {
+                        toWireType (a, b) {
                           return gb(b);
                         },
                         argPackAdvance: 8,
@@ -1646,7 +1645,7 @@
                         na: null,
                       });
                     },
-                    o: function (a, b, c, d) {
+                    o (a, b, c, d) {
                       function f() {}
                       c = La(c);
                       b = K(b);
@@ -1654,10 +1653,10 @@
                       Q(a, {
                         name: b,
                         constructor: f,
-                        fromWireType: function (a) {
+                        fromWireType (a) {
                           return this.constructor.values[a];
                         },
-                        toWireType: function (a, b) {
+                        toWireType (a, b) {
                           return b.value;
                         },
                         argPackAdvance: 8,
@@ -1666,32 +1665,32 @@
                       });
                       bb(b, f);
                     },
-                    b: function (a, b, c) {
-                      var d = zb(a, "enum");
+                    b (a, b, c) {
+                      let d = zb(a, "enum");
                       b = K(b);
                       a = d.constructor;
                       d = Object.create(d.constructor.prototype, {
                         value: { value: c },
                         constructor: {
-                          value: Pa(d.name + "_" + b, function () {}),
+                          value: Pa(`${d.name  }_${  b}`, () => {}),
                         },
                       });
                       a.values[c] = d;
                       a[b] = d;
                     },
-                    i: function (a, b, c) {
+                    i (a, b, c) {
                       c = La(c);
                       b = K(b);
                       Q(a, {
                         name: b,
-                        fromWireType: function (a) {
+                        fromWireType (a) {
                           return a;
                         },
-                        toWireType: function (a, b) {
-                          if ("number" !== typeof b && "boolean" !== typeof b)
-                            throw new TypeError(
-                              'Cannot convert "' + V(b) + '" to ' + this.name
-                            );
+                        toWireType (a, b) {
+                          if (typeof b !== "number" && typeof b !== "boolean")
+                            {throw new TypeError(
+                              `Cannot convert "${  V(b)  }" to ${  this.name}`
+                            );}
                           return b;
                         },
                         argPackAdvance: 8,
@@ -1699,65 +1698,65 @@
                         na: null,
                       });
                     },
-                    l: function (a, b, c, d, f, g) {
-                      var h = sb(b, c);
+                    l (a, b, c, d, f, g) {
+                      const h = sb(b, c);
                       a = K(a);
                       f = X(d, f);
                       bb(
                         a,
-                        function () {
-                          rb("Cannot call " + a + " due to unbound types", h);
+                        () => {
+                          rb(`Cannot call ${  a  } due to unbound types`, h);
                         },
                         b - 1
                       );
-                      P([], h, function (c) {
+                      P([], h, (c) => {
                         c = [c[0], null].concat(c.slice(1));
                         nb(a, vb(a, c, null, f, g), b - 1);
                         return [];
                       });
                     },
-                    e: function (a, b, c, d, f) {
+                    e (a, b, c, d, f) {
                       function g(a) {
                         return a;
                       }
                       b = K(b);
-                      -1 === f && (f = 4294967295);
-                      var h = La(c);
-                      if (0 === d) {
-                        var l = 32 - 8 * c;
+                      f === -1 && (f = 4294967295);
+                      const h = La(c);
+                      if (d === 0) {
+                        const l = 32 - 8 * c;
                         g = function (a) {
                           return (a << l) >>> l;
                         };
                       }
-                      var n = -1 != b.indexOf("unsigned");
+                      const n = b.indexOf("unsigned") != -1;
                       Q(a, {
                         name: b,
                         fromWireType: g,
-                        toWireType: function (a, c) {
-                          if ("number" !== typeof c && "boolean" !== typeof c)
-                            throw new TypeError(
-                              'Cannot convert "' + V(c) + '" to ' + this.name
-                            );
+                        toWireType (a, c) {
+                          if (typeof c !== "number" && typeof c !== "boolean")
+                            {throw new TypeError(
+                              `Cannot convert "${  V(c)  }" to ${  this.name}`
+                            );}
                           if (c < d || c > f)
-                            throw new TypeError(
-                              'Passing a number "' +
-                                V(c) +
-                                '" from JS side to C/C++ side to an argument of type "' +
-                                b +
-                                '", which is outside the valid range [' +
-                                d +
-                                ", " +
-                                f +
-                                "]!"
-                            );
+                            {throw new TypeError(
+                              `Passing a number "${ 
+                                V(c) 
+                                }" from JS side to C/C++ side to an argument of type "${ 
+                                b 
+                                }", which is outside the valid range [${ 
+                                d 
+                                }, ${ 
+                                f 
+                                }]!`
+                            );}
                           return n ? c >>> 0 : c | 0;
                         },
                         argPackAdvance: 8,
-                        readValueFromPointer: Bb(b, h, 0 !== d),
+                        readValueFromPointer: Bb(b, h, d !== 0),
                         na: null,
                       });
                     },
-                    d: function (a, b, c) {
+                    d (a, b, c) {
                       function d(a) {
                         a >>= 2;
                         return new f(E.buffer, E[a + 1], E[a]);
@@ -1784,46 +1783,46 @@
                         { Na: !0 }
                       );
                     },
-                    j: function (a, b) {
+                    j (a, b) {
                       b = K(b);
-                      var c = "std::string" === b;
+                      const c = b === "std::string";
                       Q(a, {
                         name: b,
-                        fromWireType: function (a) {
-                          var b = E[a >> 2];
+                        fromWireType (a) {
+                          const b = E[a >> 2];
                           if (c) {
-                            var d = B[a + 4 + b],
-                              h = 0;
-                            0 != d && ((h = d), (B[a + 4 + b] = 0));
-                            var l = a + 4;
+                            var d = B[a + 4 + b];
+                              let h = 0;
+                            d != 0 && ((h = d), (B[a + 4 + b] = 0));
+                            let l = a + 4;
                             for (d = 0; d <= b; ++d) {
-                              var n = a + 4 + d;
-                              if (0 == B[n]) {
+                              const n = a + 4 + d;
+                              if (B[n] == 0) {
                                 l = na(l);
                                 if (void 0 === k) var k = l;
                                 else (k += String.fromCharCode(0)), (k += l);
                                 l = n + 1;
                               }
                             }
-                            0 != h && (B[a + 4 + b] = h);
+                            h != 0 && (B[a + 4 + b] = h);
                           } else {
                             k = Array(b);
                             for (d = 0; d < b; ++d)
-                              k[d] = String.fromCharCode(B[a + 4 + d]);
+                              {k[d] = String.fromCharCode(B[a + 4 + d]);}
                             k = k.join("");
                           }
                           Y(a);
                           return k;
                         },
-                        toWireType: function (a, b) {
+                        toWireType (a, b) {
                           b instanceof ArrayBuffer && (b = new Uint8Array(b));
-                          var d = "string" === typeof b;
+                          let d = typeof b === "string";
                           d ||
                             b instanceof Uint8Array ||
                             b instanceof Uint8ClampedArray ||
                             b instanceof Int8Array ||
                             O("Cannot pass non-string to std::string");
-                          var f = (
+                          const f = (
                               c && d
                                 ? function () {
                                     return pa(b);
@@ -1831,47 +1830,47 @@
                                 : function () {
                                     return b.length;
                                   }
-                            )(),
-                            l = Ob(4 + f + 1);
+                            )();
+                            const l = Ob(4 + f + 1);
                           E[l >> 2] = f;
                           if (c && d) oa(b, B, l + 4, f + 1);
                           else if (d)
-                            for (d = 0; d < f; ++d) {
-                              var n = b.charCodeAt(d);
-                              255 < n &&
+                            {for (d = 0; d < f; ++d) {
+                              const n = b.charCodeAt(d);
+                              n > 255 &&
                                 (Y(l),
                                 O(
                                   "String has UTF-16 code units that do not fit in 8 bits"
                                 ));
                               B[l + 4 + d] = n;
-                            }
+                            }}
                           else for (d = 0; d < f; ++d) B[l + 4 + d] = b[d];
-                          null !== a && a.push(Y, l);
+                          a !== null && a.push(Y, l);
                           return l;
                         },
                         argPackAdvance: 8,
                         readValueFromPointer: ib,
-                        na: function (a) {
+                        na (a) {
                           Y(a);
                         },
                       });
                     },
-                    u: function (a, b, c) {
+                    u (a, b, c) {
                       c = K(c);
-                      if (2 === b) {
+                      if (b === 2) {
                         var d = function () {
                           return ra;
                         };
                         var f = 1;
                       } else
-                        4 === b &&
+                        {b === 4 &&
                           ((d = function () {
                             return E;
                           }),
-                          (f = 2));
+                          (f = 2));}
                       Q(a, {
                         name: c,
-                        fromWireType: function (a) {
+                        fromWireType (a) {
                           for (
                             var b = d(),
                               c = E[a >> 2],
@@ -1881,84 +1880,84 @@
                             m < c;
                             ++m
                           )
-                            g[m] = String.fromCharCode(b[k + m]);
+                            {g[m] = String.fromCharCode(b[k + m]);}
                           Y(a);
                           return g.join("");
                         },
-                        toWireType: function (a, c) {
-                          var g = c.length,
-                            h = Ob(4 + g * b),
-                            k = d();
+                        toWireType (a, c) {
+                          const g = c.length;
+                            const h = Ob(4 + g * b);
+                            const k = d();
                           E[h >> 2] = g;
-                          for (var m = (h + 4) >> f, r = 0; r < g; ++r)
-                            k[m + r] = c.charCodeAt(r);
-                          null !== a && a.push(Y, h);
+                          for (let m = (h + 4) >> f, r = 0; r < g; ++r)
+                            {k[m + r] = c.charCodeAt(r);}
+                          a !== null && a.push(Y, h);
                           return h;
                         },
                         argPackAdvance: 8,
                         readValueFromPointer: ib,
-                        na: function (a) {
+                        na (a) {
                           Y(a);
                         },
                       });
                     },
-                    w: function (a, b) {
+                    w (a, b) {
                       b = K(b);
                       Q(a, {
                         ab: !0,
                         name: b,
                         argPackAdvance: 0,
-                        fromWireType: function () {},
-                        toWireType: function () {},
+                        fromWireType () {},
+                        toWireType () {},
                       });
                     },
                     m: xb,
-                    n: function (a) {
-                      4 < a && (Z[a].Ea += 1);
+                    n (a) {
+                      a > 4 && (Z[a].Ea += 1);
                     },
-                    h: function (a, b) {
+                    h (a, b) {
                       a = zb(a, "_emval_take_value");
                       a = a.readValueFromPointer(b);
                       return gb(a);
                     },
-                    a: function () {
+                    a () {
                       x();
                     },
-                    r: function (a, b, c) {
+                    r (a, b, c) {
                       B.set(B.subarray(b, b + c), a);
                     },
-                    s: function () {
+                    s () {
                       x("OOM");
                     },
-                    A: function (a, b) {
-                      var c = 0;
-                      Db().forEach(function (d, f) {
-                        var g = b + c;
+                    A (a, b) {
+                      let c = 0;
+                      Db().forEach((d, f) => {
+                        let g = b + c;
                         f = D[(a + 4 * f) >> 2] = g;
                         for (g = 0; g < d.length; ++g)
-                          C[f++ >> 0] = d.charCodeAt(g);
+                          {C[f++ >> 0] = d.charCodeAt(g);}
                         C[f >> 0] = 0;
                         c += d.length + 1;
                       });
                       return 0;
                     },
-                    B: function (a, b) {
-                      var c = Db();
+                    B (a, b) {
+                      const c = Db();
                       D[a >> 2] = c.length;
-                      var d = 0;
-                      c.forEach(function (a) {
+                      let d = 0;
+                      c.forEach((a) => {
                         d += a.length + 1;
                       });
                       D[b >> 2] = d;
                       return 0;
                     },
-                    D: function () {
+                    D () {
                       return 0;
                     },
-                    p: function () {
+                    p () {
                       return 0;
                     },
-                    C: function (a, b, c, d) {
+                    C (a, b, c, d) {
                       try {
                         for (var f = 0, g = 0; g < c; g++) {
                           for (
@@ -1968,10 +1967,10 @@
                             n < l;
                             n++
                           ) {
-                            var k = B[h + n],
-                              m = Ha[a];
-                            0 === k || 10 === k
-                              ? ((1 === a ? ia : y)(ma(m, 0)), (m.length = 0))
+                            const k = B[h + n];
+                              const m = Ha[a];
+                            k === 0 || k === 10
+                              ? ((a === 1 ? ia : y)(ma(m, 0)), (m.length = 0))
                               : m.push(k);
                           }
                           f += l;
@@ -1983,19 +1982,19 @@
                       }
                     },
                     memory: A,
-                    q: function () {},
-                    x: function (a, b, c, d) {
+                    q () {},
+                    x (a, b, c, d) {
                       return Kb(a, b, c, d);
                     },
                     table: ja,
-                  },
-                  Qb = (function () {
+                  };
+                  const Qb = (function () {
                     function a(a) {
                       e.asm = a.exports;
                       H--;
                       e.monitorRunDependencies && e.monitorRunDependencies(H);
-                      0 == H &&
-                        (null !== Ba && (clearInterval(Ba), (Ba = null)),
+                      H == 0 &&
+                        (Ba !== null && (clearInterval(Ba), (Ba = null)),
                         I && ((a = I), (I = null), a()));
                     }
                     function b(b) {
@@ -2003,11 +2002,9 @@
                     }
                     function c(a) {
                       return Fa()
-                        .then(function (a) {
-                          return WebAssembly.instantiate(a, d);
-                        })
-                        .then(a, function (a) {
-                          y("failed to asynchronously prepare wasm: " + a);
+                        .then((a) => WebAssembly.instantiate(a, d))
+                        .then(a, (a) => {
+                          y(`failed to asynchronously prepare wasm: ${  a}`);
                           x(a);
                         });
                     }
@@ -2015,52 +2012,50 @@
                     H++;
                     e.monitorRunDependencies && e.monitorRunDependencies(H);
                     if (e.instantiateWasm)
-                      try {
+                      {try {
                         return e.instantiateWasm(d, a);
                       } catch (f) {
                         return (
                           y(
-                            "Module.instantiateWasm callback failed with error: " +
-                              f
+                            `Module.instantiateWasm callback failed with error: ${ 
+                              f}`
                           ),
                           !1
                         );
-                      }
+                      }}
                     (function () {
                       if (
                         z ||
-                        "function" !==
-                          typeof WebAssembly.instantiateStreaming ||
+                        typeof WebAssembly.instantiateStreaming !==
+                          "function" ||
                         Ca() ||
-                        "function" !== typeof fetch
+                        typeof fetch !== "function"
                       )
-                        return c(b);
-                      fetch(J, { credentials: "same-origin" }).then(function (
+                        {return c(b);}
+                      fetch(J, { credentials: "same-origin" }).then((
                         a
-                      ) {
-                        return WebAssembly.instantiateStreaming(a, d).then(
+                      ) => WebAssembly.instantiateStreaming(a, d).then(
                           b,
-                          function (a) {
-                            y("wasm streaming compile failed: " + a);
+                          (a) => {
+                            y(`wasm streaming compile failed: ${  a}`);
                             y("falling back to ArrayBuffer instantiation");
                             c(b);
                           }
-                        );
-                      });
+                        ));
                     })();
                     return {};
                   })();
                 e.asm = Qb;
                 var Ga = (e.___wasm_call_ctors = function () {
                     return e.asm.F.apply(null, arguments);
-                  }),
-                  Ob = (e._malloc = function () {
+                  });
+                  var Ob = (e._malloc = function () {
                     return e.asm.G.apply(null, arguments);
-                  }),
-                  Y = (e._free = function () {
+                  });
+                  var Y = (e._free = function () {
                     return e.asm.H.apply(null, arguments);
-                  }),
-                  qb = (e.___getTypeName = function () {
+                  });
+                  var qb = (e.___getTypeName = function () {
                     return e.asm.I.apply(null, arguments);
                   });
                 e.___embind_register_native_and_builtin_types = function () {
@@ -2133,11 +2128,11 @@
                   return e.asm.da.apply(null, arguments);
                 };
                 e.asm = Qb;
-                var Rb;
+                let Rb;
                 e.then = function (a) {
                   if (Rb) a(e);
                   else {
-                    var b = e.onRuntimeInitialized;
+                    const b = e.onRuntimeInitialized;
                     e.onRuntimeInitialized = function () {
                       b && b();
                       a(e);
@@ -2156,33 +2151,33 @@
                       va(ya);
                       if (e.onRuntimeInitialized) e.onRuntimeInitialized();
                       if (e.postRun)
-                        for (
-                          "function" == typeof e.postRun &&
+                        {for (
+                          typeof e.postRun === "function" &&
                           (e.postRun = [e.postRun]);
                           e.postRun.length;
 
                         ) {
-                          var a = e.postRun.shift();
+                          const a = e.postRun.shift();
                           za.unshift(a);
-                        }
+                        }}
                       va(za);
                     }
                   }
-                  if (!(0 < H)) {
+                  if (!(H > 0)) {
                     if (e.preRun)
-                      for (
-                        "function" == typeof e.preRun &&
+                      {for (
+                        typeof e.preRun === "function" &&
                         (e.preRun = [e.preRun]);
                         e.preRun.length;
 
                       )
-                        Aa();
+                        {Aa();}}
                     va(wa);
-                    0 < H ||
+                    H > 0 ||
                       (e.setStatus
                         ? (e.setStatus("Running..."),
-                          setTimeout(function () {
-                            setTimeout(function () {
+                          setTimeout(() => {
+                            setTimeout(() => {
                               e.setStatus("");
                             }, 1);
                             a();
@@ -2192,25 +2187,23 @@
                 }
                 e.run = Tb;
                 if (e.preInit)
-                  for (
-                    "function" == typeof e.preInit && (e.preInit = [e.preInit]);
-                    0 < e.preInit.length;
+                  {for (
+                    typeof e.preInit === "function" && (e.preInit = [e.preInit]);
+                    e.preInit.length > 0;
 
                   )
-                    e.preInit.pop()();
+                    {e.preInit.pop()();}}
                 Tb();
 
                 return anitomyscript;
               };
             })();
             if (typeof exports === "object" && typeof module === "object")
-              module.exports = anitomyscript;
-            else if (typeof define === "function" && define["amd"])
-              define([], function () {
-                return anitomyscript;
-              });
+              {module.exports = anitomyscript;}
+            else if (typeof define === "function" && define.amd)
+              {define([], () => anitomyscript);}
             else if (typeof exports === "object")
-              exports["anitomyscript"] = anitomyscript;
+              {exports.anitomyscript = anitomyscript;}
           }.call(
             this,
             require("_process"),
@@ -2222,9 +2215,9 @@
       ],
       2: [
         function (require, module, exports) {
-          "use strict";
+          
 
-          var _regenerator = _interopRequireDefault(
+          const _regenerator = _interopRequireDefault(
             require("@babel/runtime/regenerator")
           );
 
@@ -2243,7 +2236,7 @@
           ) {
             try {
               var info = gen[key](arg);
-              var value = info.value;
+              var {value} = info;
             } catch (error) {
               reject(error);
               return;
@@ -2257,10 +2250,10 @@
 
           function _asyncToGenerator(fn) {
             return function () {
-              var self = this,
-                args = arguments;
-              return new Promise(function (resolve, reject) {
-                var gen = fn.apply(self, args);
+              const self = this;
+                const args = arguments;
+              return new Promise((resolve, reject) => {
+                const gen = fn.apply(self, args);
                 function _next(value) {
                   asyncGeneratorStep(
                     gen,
@@ -2288,9 +2281,9 @@
             };
           }
 
-          var AnitomyNative = require("./build/anitomyscript");
+          const AnitomyNative = require("./build/anitomyscript");
 
-          var anitomyModule = undefined;
+          let anitomyModule;
 
           module.exports = function (file) {
             if (!Array.isArray(file) && typeof file !== "string") {
@@ -2303,11 +2296,11 @@
               return parse(file);
             }
 
-            return new Promise(function (resolve, reject) {
+            return new Promise((resolve, reject) => {
               try {
-                AnitomyNative().then(function (actualModule) {
+                AnitomyNative().then((actualModule) => {
                   anitomyModule = actualModule;
-                  parse(file).then(resolve)["catch"](reject);
+                  parse(file).then(resolve).catch(reject);
                 });
               } catch (err) {
                 reject(err);
@@ -2321,12 +2314,13 @@
 
           function _parse() {
             _parse = _asyncToGenerator(
-              /*#__PURE__*/
-              _regenerator["default"].mark(function _callee(file) {
-                var vector, result;
-                return _regenerator["default"].wrap(function _callee$(
+              /* #__PURE__ */
+              _regenerator.default.mark(function _callee(file) {
+                let vector; let 
+result;
+                return _regenerator.default.wrap((
                   _context
-                ) {
+                ) => {
                   while (1) {
                     switch ((_context.prev = _context.next)) {
                       case 0:
@@ -2337,12 +2331,10 @@
 
                         vector = mapArray(file);
                         result = mapVector(anitomyModule.parseMultiple(vector));
-                        vector["delete"]();
+                        vector.delete();
                         return _context.abrupt(
                           "return",
-                          result.map(function (each) {
-                            return elements(each);
-                          })
+                          result.map((each) => elements(each))
                         );
 
                       case 7:
@@ -2364,7 +2356,7 @@
           }
 
           function elements(elements) {
-            var returnObj = {
+            const returnObj = {
               anime_season: elementEntry(
                 elements,
                 anitomyModule.ElementCategory.kElementAnimeSeason
@@ -2466,21 +2458,21 @@
                 anitomyModule.ElementCategory.kElementUnknown
               ),
             };
-            elements["delete"]();
+            elements.delete();
             return returnObj;
           }
 
           function elementEntry(elements, key) {
             if (elements.count(key) > 1) {
               return mapVector(elements.get_all(key));
-            } else {
+            } 
               return elements.get(key) || undefined;
-            }
+            
           }
 
           function mapArray(array) {
-            var vector = new anitomyModule.StringVector();
-            array.forEach(function (element, index) {
+            const vector = new anitomyModule.StringVector();
+            array.forEach((element, index) => {
               if (typeof element !== "string") {
                 throw new Error(
                   "Element at index ".concat(index, " is not a string")
@@ -2493,13 +2485,13 @@
           }
 
           function mapVector(vector) {
-            var array = [];
+            const array = [];
 
-            for (var index = 0; index < vector.size(); index++) {
+            for (let index = 0; index < vector.size(); index++) {
               array.push(vector.get(index));
             }
 
-            vector["delete"]();
+            vector.delete();
             return array;
           }
         },
@@ -2545,9 +2537,9 @@
             // relative and absolute paths)
             function normalizeArray(parts, allowAboveRoot) {
               // if the path tries to go above the root, `up` ends up > 0
-              var up = 0;
-              for (var i = parts.length - 1; i >= 0; i--) {
-                var last = parts[i];
+              let up = 0;
+              for (let i = parts.length - 1; i >= 0; i--) {
+                const last = parts[i];
                 if (last === ".") {
                   parts.splice(i, 1);
                 } else if (last === "..") {
@@ -2572,15 +2564,15 @@
             // path.resolve([from ...], to)
             // posix version
             exports.resolve = function () {
-              var resolvedPath = "",
-                resolvedAbsolute = false;
+              let resolvedPath = "";
+                let resolvedAbsolute = false;
 
               for (
-                var i = arguments.length - 1;
+                let i = arguments.length - 1;
                 i >= -1 && !resolvedAbsolute;
                 i--
               ) {
-                var path = i >= 0 ? arguments[i] : process.cwd();
+                const path = i >= 0 ? arguments[i] : process.cwd();
 
                 // Skip empty and invalid entries
                 if (typeof path !== "string") {
@@ -2591,7 +2583,7 @@
                   continue;
                 }
 
-                resolvedPath = path + "/" + resolvedPath;
+                resolvedPath = `${path  }/${  resolvedPath}`;
                 resolvedAbsolute = path.charAt(0) === "/";
               }
 
@@ -2600,9 +2592,7 @@
 
               // Normalize the path
               resolvedPath = normalizeArray(
-                filter(resolvedPath.split("/"), function (p) {
-                  return !!p;
-                }),
+                filter(resolvedPath.split("/"), (p) => !!p),
                 !resolvedAbsolute
               ).join("/");
 
@@ -2612,14 +2602,12 @@
             // path.normalize(path)
             // posix version
             exports.normalize = function (path) {
-              var isAbsolute = exports.isAbsolute(path),
-                trailingSlash = substr(path, -1) === "/";
+              const isAbsolute = exports.isAbsolute(path);
+                const trailingSlash = substr(path, -1) === "/";
 
               // Normalize the path
               path = normalizeArray(
-                filter(path.split("/"), function (p) {
-                  return !!p;
-                }),
+                filter(path.split("/"), (p) => !!p),
                 !isAbsolute
               ).join("/");
 
@@ -2640,9 +2628,9 @@
 
             // posix version
             exports.join = function () {
-              var paths = Array.prototype.slice.call(arguments, 0);
+              const paths = Array.prototype.slice.call(arguments, 0);
               return exports.normalize(
-                filter(paths, function (p, index) {
+                filter(paths, (p, index) => {
                   if (typeof p !== "string") {
                     throw new TypeError(
                       "Arguments to path.join must be strings"
@@ -2660,12 +2648,12 @@
               to = exports.resolve(to).substr(1);
 
               function trim(arr) {
-                var start = 0;
+                let start = 0;
                 for (; start < arr.length; start++) {
                   if (arr[start] !== "") break;
                 }
 
-                var end = arr.length - 1;
+                let end = arr.length - 1;
                 for (; end >= 0; end--) {
                   if (arr[end] !== "") break;
                 }
@@ -2674,11 +2662,11 @@
                 return arr.slice(start, end - start + 1);
               }
 
-              var fromParts = trim(from.split("/"));
-              var toParts = trim(to.split("/"));
+              const fromParts = trim(from.split("/"));
+              const toParts = trim(to.split("/"));
 
-              var length = Math.min(fromParts.length, toParts.length);
-              var samePartsLength = length;
+              const length = Math.min(fromParts.length, toParts.length);
+              let samePartsLength = length;
               for (var i = 0; i < length; i++) {
                 if (fromParts[i] !== toParts[i]) {
                   samePartsLength = i;
@@ -2686,7 +2674,7 @@
                 }
               }
 
-              var outputParts = [];
+              let outputParts = [];
               for (var i = samePartsLength; i < fromParts.length; i++) {
                 outputParts.push("..");
               }
@@ -2700,15 +2688,15 @@
             exports.delimiter = ":";
 
             exports.dirname = function (path) {
-              if (typeof path !== "string") path = path + "";
+              if (typeof path !== "string") path += "";
               if (path.length === 0) return ".";
-              var code = path.charCodeAt(0);
-              var hasRoot = code === 47; /*/*/
-              var end = -1;
-              var matchedSlash = true;
-              for (var i = path.length - 1; i >= 1; --i) {
+              let code = path.charCodeAt(0);
+              const hasRoot = code === 47; /* / */
+              let end = -1;
+              let matchedSlash = true;
+              for (let i = path.length - 1; i >= 1; --i) {
                 code = path.charCodeAt(i);
-                if (code === 47 /*/*/) {
+                if (code === 47 /* / */) {
                   if (!matchedSlash) {
                     end = i;
                     break;
@@ -2729,15 +2717,15 @@
             };
 
             function basename(path) {
-              if (typeof path !== "string") path = path + "";
+              if (typeof path !== "string") path += "";
 
-              var start = 0;
-              var end = -1;
-              var matchedSlash = true;
-              var i;
+              let start = 0;
+              let end = -1;
+              let matchedSlash = true;
+              let i;
 
               for (i = path.length - 1; i >= 0; --i) {
-                if (path.charCodeAt(i) === 47 /*/*/) {
+                if (path.charCodeAt(i) === 47 /* / */) {
                   // If we reached a path separator that was not part of a set of path
                   // separators at the end of the string, stop now
                   if (!matchedSlash) {
@@ -2759,7 +2747,7 @@
             // Uses a mixed approach for backwards-compatibility, as ext behavior changed
             // in new Node.js versions, so only basename() above is backported here
             exports.basename = function (path, ext) {
-              var f = basename(path);
+              let f = basename(path);
               if (ext && f.substr(-1 * ext.length) === ext) {
                 f = f.substr(0, f.length - ext.length);
               }
@@ -2767,17 +2755,17 @@
             };
 
             exports.extname = function (path) {
-              if (typeof path !== "string") path = path + "";
-              var startDot = -1;
-              var startPart = 0;
-              var end = -1;
-              var matchedSlash = true;
+              if (typeof path !== "string") path += "";
+              let startDot = -1;
+              let startPart = 0;
+              let end = -1;
+              let matchedSlash = true;
               // Track the state of characters (if any) we see before our first dot and
               // after any path separator we find
-              var preDotState = 0;
-              for (var i = path.length - 1; i >= 0; --i) {
-                var code = path.charCodeAt(i);
-                if (code === 47 /*/*/) {
+              let preDotState = 0;
+              for (let i = path.length - 1; i >= 0; --i) {
+                const code = path.charCodeAt(i);
+                if (code === 47 /* / */) {
                   // If we reached a path separator that was not part of a set of path
                   // separators at the end of the string, stop now
                   if (!matchedSlash) {
@@ -2792,7 +2780,7 @@
                   matchedSlash = false;
                   end = i + 1;
                 }
-                if (code === 46 /*.*/) {
+                if (code === 46 /* . */) {
                   // If this is our first dot, mark it as the start of our extension
                   if (startDot === -1) startDot = i;
                   else if (preDotState !== 1) preDotState = 1;
@@ -2820,8 +2808,8 @@
 
             function filter(xs, f) {
               if (xs.filter) return xs.filter(f);
-              var res = [];
-              for (var i = 0; i < xs.length; i++) {
+              const res = [];
+              for (let i = 0; i < xs.length; i++) {
                 if (f(xs[i], i, xs)) res.push(xs[i]);
               }
               return res;
@@ -2844,15 +2832,15 @@
       6: [
         function (require, module, exports) {
           // shim for using process in browser
-          var process = (module.exports = {});
+          const process = (module.exports = {});
 
           // cached from whatever global is present so that test runners that stub it
           // don't break things.  But we need to wrap it in a try catch in case it is
           // wrapped in strict mode code which doesn't define any globals.  It's inside a
           // function because try/catches deoptimize in certain engines.
 
-          var cachedSetTimeout;
-          var cachedClearTimeout;
+          let cachedSetTimeout;
+          let cachedClearTimeout;
 
           function defaultSetTimout() {
             throw new Error("setTimeout has not been defined");
@@ -2882,7 +2870,7 @@
           })();
           function runTimeout(fun) {
             if (cachedSetTimeout === setTimeout) {
-              //normal enviroments in sane situations
+              // normal enviroments in sane situations
               return setTimeout(fun, 0);
             }
             // if setTimeout wasn't available but was latter defined
@@ -2908,7 +2896,7 @@
           }
           function runClearTimeout(marker) {
             if (cachedClearTimeout === clearTimeout) {
-              //normal enviroments in sane situations
+              // normal enviroments in sane situations
               return clearTimeout(marker);
             }
             // if clearTimeout wasn't available but was latter defined
@@ -2934,10 +2922,10 @@
               }
             }
           }
-          var queue = [];
-          var draining = false;
-          var currentQueue;
-          var queueIndex = -1;
+          let queue = [];
+          let draining = false;
+          let currentQueue;
+          let queueIndex = -1;
 
           function cleanUpNextTick() {
             if (!draining || !currentQueue) {
@@ -2958,10 +2946,10 @@
             if (draining) {
               return;
             }
-            var timeout = runTimeout(cleanUpNextTick);
+            const timeout = runTimeout(cleanUpNextTick);
             draining = true;
 
-            var len = queue.length;
+            let len = queue.length;
             while (len) {
               currentQueue = queue;
               queue = [];
@@ -2979,9 +2967,9 @@
           }
 
           process.nextTick = function (fun) {
-            var args = new Array(arguments.length - 1);
+            const args = new Array(arguments.length - 1);
             if (arguments.length > 1) {
-              for (var i = 1; i < arguments.length; i++) {
+              for (let i = 1; i < arguments.length; i++) {
                 args[i - 1] = arguments[i];
               }
             }
@@ -3047,26 +3035,26 @@
            * LICENSE file in the root directory of this source tree.
            */
 
-          var runtime = (function (exports) {
-            "use strict";
+          const runtime = (function (exports) {
+            
 
-            var Op = Object.prototype;
-            var hasOwn = Op.hasOwnProperty;
-            var undefined; // More compressible than void 0.
-            var $Symbol = typeof Symbol === "function" ? Symbol : {};
-            var iteratorSymbol = $Symbol.iterator || "@@iterator";
-            var asyncIteratorSymbol =
+            const Op = Object.prototype;
+            const hasOwn = Op.hasOwnProperty;
+            let undefined; // More compressible than void 0.
+            const $Symbol = typeof Symbol === "function" ? Symbol : {};
+            const iteratorSymbol = $Symbol.iterator || "@@iterator";
+            const asyncIteratorSymbol =
               $Symbol.asyncIterator || "@@asyncIterator";
-            var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+            const toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
 
             function wrap(innerFn, outerFn, self, tryLocsList) {
               // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-              var protoGenerator =
+              const protoGenerator =
                 outerFn && outerFn.prototype instanceof Generator
                   ? outerFn
                   : Generator;
-              var generator = Object.create(protoGenerator.prototype);
-              var context = new Context(tryLocsList || []);
+              const generator = Object.create(protoGenerator.prototype);
+              const context = new Context(tryLocsList || []);
 
               // The ._invoke method unifies the implementations of the .next,
               // .throw, and .return methods.
@@ -3094,14 +3082,14 @@
               }
             }
 
-            var GenStateSuspendedStart = "suspendedStart";
-            var GenStateSuspendedYield = "suspendedYield";
-            var GenStateExecuting = "executing";
-            var GenStateCompleted = "completed";
+            const GenStateSuspendedStart = "suspendedStart";
+            const GenStateSuspendedYield = "suspendedYield";
+            const GenStateExecuting = "executing";
+            const GenStateCompleted = "completed";
 
             // Returning this object from the innerFn has the same effect as
             // breaking out of the dispatch switch statement.
-            var ContinueSentinel = {};
+            const ContinueSentinel = {};
 
             // Dummy constructor functions that we use as the .constructor and
             // .constructor.prototype properties for functions that return Generator
@@ -3113,13 +3101,13 @@
 
             // This is a polyfill for %IteratorPrototype% for environments that
             // don't natively support it.
-            var IteratorPrototype = {};
+            let IteratorPrototype = {};
             IteratorPrototype[iteratorSymbol] = function () {
               return this;
             };
 
-            var getProto = Object.getPrototypeOf;
-            var NativeIteratorPrototype =
+            const getProto = Object.getPrototypeOf;
+            const NativeIteratorPrototype =
               getProto && getProto(getProto(values([])));
             if (
               NativeIteratorPrototype &&
@@ -3131,7 +3119,7 @@
               IteratorPrototype = NativeIteratorPrototype;
             }
 
-            var Gp =
+            const Gp =
               (GeneratorFunctionPrototype.prototype =
               Generator.prototype =
                 Object.create(IteratorPrototype));
@@ -3144,7 +3132,7 @@
             // Helper for defining the .next, .throw, and .return methods of the
             // Iterator interface in terms of a single ._invoke method.
             function defineIteratorMethods(prototype) {
-              ["next", "throw", "return"].forEach(function (method) {
+              ["next", "throw", "return"].forEach((method) => {
                 prototype[method] = function (arg) {
                   return this._invoke(method, arg);
                 };
@@ -3152,7 +3140,7 @@
             }
 
             exports.isGeneratorFunction = function (genFun) {
-              var ctor = typeof genFun === "function" && genFun.constructor;
+              const ctor = typeof genFun === "function" && genFun.constructor;
               return ctor
                 ? ctor === GeneratorFunction ||
                     // For the native GeneratorFunction constructor, the best we can
@@ -3184,49 +3172,49 @@
 
             function AsyncIterator(generator) {
               function invoke(method, arg, resolve, reject) {
-                var record = tryCatch(generator[method], generator, arg);
+                const record = tryCatch(generator[method], generator, arg);
                 if (record.type === "throw") {
                   reject(record.arg);
                 } else {
-                  var result = record.arg;
-                  var value = result.value;
+                  const result = record.arg;
+                  const {value} = result;
                   if (
                     value &&
                     typeof value === "object" &&
                     hasOwn.call(value, "__await")
                   ) {
                     return Promise.resolve(value.__await).then(
-                      function (value) {
+                      (value) => {
                         invoke("next", value, resolve, reject);
                       },
-                      function (err) {
+                      (err) => {
                         invoke("throw", err, resolve, reject);
                       }
                     );
                   }
 
                   return Promise.resolve(value).then(
-                    function (unwrapped) {
+                    (unwrapped) => {
                       // When a yielded Promise is resolved, its final value becomes
                       // the .value of the Promise<{value,done}> result for the
                       // current iteration.
                       result.value = unwrapped;
                       resolve(result);
                     },
-                    function (error) {
+                    (error) => 
                       // If a rejected Promise was yielded, throw the rejection back
                       // into the async generator function so it can be handled there.
-                      return invoke("throw", error, resolve, reject);
-                    }
+                       invoke("throw", error, resolve, reject)
+                    
                   );
                 }
               }
 
-              var previousPromise;
+              let previousPromise;
 
               function enqueue(method, arg) {
                 function callInvokeWithMethodAndArg() {
-                  return new Promise(function (resolve, reject) {
+                  return new Promise((resolve, reject) => {
                     invoke(method, arg, resolve, reject);
                   });
                 }
@@ -3269,19 +3257,17 @@
             // AsyncIterator objects; they just return a Promise for the value of
             // the final result produced by the iterator.
             exports.async = function (innerFn, outerFn, self, tryLocsList) {
-              var iter = new AsyncIterator(
+              const iter = new AsyncIterator(
                 wrap(innerFn, outerFn, self, tryLocsList)
               );
 
               return exports.isGeneratorFunction(outerFn)
                 ? iter // If outerFn is a generator, return the full iterator.
-                : iter.next().then(function (result) {
-                    return result.done ? result.value : iter.next();
-                  });
+                : iter.next().then((result) => (result.done ? result.value : iter.next()));
             };
 
             function makeInvokeMethod(innerFn, self, context) {
-              var state = GenStateSuspendedStart;
+              let state = GenStateSuspendedStart;
 
               return function invoke(method, arg) {
                 if (state === GenStateExecuting) {
@@ -3302,9 +3288,9 @@
                 context.arg = arg;
 
                 while (true) {
-                  var delegate = context.delegate;
+                  const {delegate} = context;
                   if (delegate) {
-                    var delegateResult = maybeInvokeDelegate(delegate, context);
+                    const delegateResult = maybeInvokeDelegate(delegate, context);
                     if (delegateResult) {
                       if (delegateResult === ContinueSentinel) continue;
                       return delegateResult;
@@ -3328,7 +3314,7 @@
 
                   state = GenStateExecuting;
 
-                  var record = tryCatch(innerFn, self, context);
+                  const record = tryCatch(innerFn, self, context);
                   if (record.type === "normal") {
                     // If an exception is thrown from innerFn, we leave state ===
                     // GenStateExecuting and loop back for another invocation.
@@ -3344,7 +3330,7 @@
                       value: record.arg,
                       done: context.done,
                     };
-                  } else if (record.type === "throw") {
+                  } if (record.type === "throw") {
                     state = GenStateCompleted;
                     // Dispatch the exception by looping back around to the
                     // context.dispatchException(context.arg) call above.
@@ -3360,7 +3346,7 @@
             // delegate iterator, or by modifying context.method and context.arg,
             // setting context.delegate to null, and returning the ContinueSentinel.
             function maybeInvokeDelegate(delegate, context) {
-              var method = delegate.iterator[context.method];
+              const method = delegate.iterator[context.method];
               if (method === undefined) {
                 // A .throw or .return when the delegate iterator has no .throw
                 // method always terminates the yield* loop.
@@ -3368,7 +3354,7 @@
 
                 if (context.method === "throw") {
                   // Note: ["return"] must be used for ES3 parsing compatibility.
-                  if (delegate.iterator["return"]) {
+                  if (delegate.iterator.return) {
                     // If the delegate iterator has a return method, give it a
                     // chance to clean up.
                     context.method = "return";
@@ -3391,7 +3377,7 @@
                 return ContinueSentinel;
               }
 
-              var record = tryCatch(method, delegate.iterator, context.arg);
+              const record = tryCatch(method, delegate.iterator, context.arg);
 
               if (record.type === "throw") {
                 context.method = "throw";
@@ -3400,7 +3386,7 @@
                 return ContinueSentinel;
               }
 
-              var info = record.arg;
+              const info = record.arg;
 
               if (!info) {
                 context.method = "throw";
@@ -3458,7 +3444,7 @@
             };
 
             function pushTryEntry(locs) {
-              var entry = { tryLoc: locs[0] };
+              const entry = { tryLoc: locs[0] };
 
               if (1 in locs) {
                 entry.catchLoc = locs[1];
@@ -3473,7 +3459,7 @@
             }
 
             function resetTryEntry(entry) {
-              var record = entry.completion || {};
+              const record = entry.completion || {};
               record.type = "normal";
               delete record.arg;
               entry.completion = record;
@@ -3489,8 +3475,8 @@
             }
 
             exports.keys = function (object) {
-              var keys = [];
-              for (var key in object) {
+              const keys = [];
+              for (const key in object) {
                 keys.push(key);
               }
               keys.reverse();
@@ -3499,7 +3485,7 @@
               // things simple and return the next function itself.
               return function next() {
                 while (keys.length) {
-                  var key = keys.pop();
+                  const key = keys.pop();
                   if (key in object) {
                     next.value = key;
                     next.done = false;
@@ -3517,7 +3503,7 @@
 
             function values(iterable) {
               if (iterable) {
-                var iteratorMethod = iterable[iteratorSymbol];
+                const iteratorMethod = iterable[iteratorSymbol];
                 if (iteratorMethod) {
                   return iteratorMethod.call(iterable);
                 }
@@ -3527,8 +3513,8 @@
                 }
 
                 if (!isNaN(iterable.length)) {
-                  var i = -1,
-                    next = function next() {
+                  let i = -1;
+                    const next = function next() {
                       while (++i < iterable.length) {
                         if (hasOwn.call(iterable, i)) {
                           next.value = iterable[i];
@@ -3559,7 +3545,7 @@
             Context.prototype = {
               constructor: Context,
 
-              reset: function (skipTempReset) {
+              reset (skipTempReset) {
                 this.prev = 0;
                 this.next = 0;
                 // Resetting context._sent for legacy support of Babel's
@@ -3574,7 +3560,7 @@
                 this.tryEntries.forEach(resetTryEntry);
 
                 if (!skipTempReset) {
-                  for (var name in this) {
+                  for (const name in this) {
                     // Not sure about the optimal order of these conditions:
                     if (
                       name.charAt(0) === "t" &&
@@ -3587,11 +3573,11 @@
                 }
               },
 
-              stop: function () {
+              stop () {
                 this.done = true;
 
-                var rootEntry = this.tryEntries[0];
-                var rootRecord = rootEntry.completion;
+                const rootEntry = this.tryEntries[0];
+                const rootRecord = rootEntry.completion;
                 if (rootRecord.type === "throw") {
                   throw rootRecord.arg;
                 }
@@ -3599,12 +3585,12 @@
                 return this.rval;
               },
 
-              dispatchException: function (exception) {
+              dispatchException (exception) {
                 if (this.done) {
                   throw exception;
                 }
 
-                var context = this;
+                const context = this;
                 function handle(loc, caught) {
                   record.type = "throw";
                   record.arg = exception;
@@ -3620,8 +3606,8 @@
                   return !!caught;
                 }
 
-                for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-                  var entry = this.tryEntries[i];
+                for (let i = this.tryEntries.length - 1; i >= 0; --i) {
+                  const entry = this.tryEntries[i];
                   var record = entry.completion;
 
                   if (entry.tryLoc === "root") {
@@ -3632,13 +3618,13 @@
                   }
 
                   if (entry.tryLoc <= this.prev) {
-                    var hasCatch = hasOwn.call(entry, "catchLoc");
-                    var hasFinally = hasOwn.call(entry, "finallyLoc");
+                    const hasCatch = hasOwn.call(entry, "catchLoc");
+                    const hasFinally = hasOwn.call(entry, "finallyLoc");
 
                     if (hasCatch && hasFinally) {
                       if (this.prev < entry.catchLoc) {
                         return handle(entry.catchLoc, true);
-                      } else if (this.prev < entry.finallyLoc) {
+                      } if (this.prev < entry.finallyLoc) {
                         return handle(entry.finallyLoc);
                       }
                     } else if (hasCatch) {
@@ -3656,9 +3642,9 @@
                 }
               },
 
-              abrupt: function (type, arg) {
-                for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-                  var entry = this.tryEntries[i];
+              abrupt (type, arg) {
+                for (let i = this.tryEntries.length - 1; i >= 0; --i) {
+                  const entry = this.tryEntries[i];
                   if (
                     entry.tryLoc <= this.prev &&
                     hasOwn.call(entry, "finallyLoc") &&
@@ -3680,7 +3666,7 @@
                   finallyEntry = null;
                 }
 
-                var record = finallyEntry ? finallyEntry.completion : {};
+                const record = finallyEntry ? finallyEntry.completion : {};
                 record.type = type;
                 record.arg = arg;
 
@@ -3693,7 +3679,7 @@
                 return this.complete(record);
               },
 
-              complete: function (record, afterLoc) {
+              complete (record, afterLoc) {
                 if (record.type === "throw") {
                   throw record.arg;
                 }
@@ -3711,9 +3697,9 @@
                 return ContinueSentinel;
               },
 
-              finish: function (finallyLoc) {
-                for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-                  var entry = this.tryEntries[i];
+              finish (finallyLoc) {
+                for (let i = this.tryEntries.length - 1; i >= 0; --i) {
+                  const entry = this.tryEntries[i];
                   if (entry.finallyLoc === finallyLoc) {
                     this.complete(entry.completion, entry.afterLoc);
                     resetTryEntry(entry);
@@ -3722,11 +3708,11 @@
                 }
               },
 
-              catch: function (tryLoc) {
-                for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-                  var entry = this.tryEntries[i];
+              catch (tryLoc) {
+                for (let i = this.tryEntries.length - 1; i >= 0; --i) {
+                  const entry = this.tryEntries[i];
                   if (entry.tryLoc === tryLoc) {
-                    var record = entry.completion;
+                    const record = entry.completion;
                     if (record.type === "throw") {
                       var thrown = record.arg;
                       resetTryEntry(entry);
@@ -3740,11 +3726,11 @@
                 throw new Error("illegal catch attempt");
               },
 
-              delegateYield: function (iterable, resultName, nextLoc) {
+              delegateYield (iterable, resultName, nextLoc) {
                 this.delegate = {
                   iterator: values(iterable),
-                  resultName: resultName,
-                  nextLoc: nextLoc,
+                  resultName,
+                  nextLoc,
                 };
 
                 if (this.method === "next") {

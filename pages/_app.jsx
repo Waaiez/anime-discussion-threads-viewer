@@ -18,8 +18,8 @@ function MyApp({ Component, pageProps }) {
 
 			<ToastContainer autoClose={2000} />
 			<Script src='/anitomyscript/anitomyscript.bundle.min.js' />
-			<div className='bg-gray-800 min-h-screen flex flex-col items-center justify-around select-none'>
-				<div className='max-w-4xl mx-auto w-full p-8 md:px-20 2xl:max-w-7xl h-full justify-evenly flex flex-col'>
+			<div className='flex flex-col items-center justify-around min-h-screen bg-gray-800 select-none'>
+				<div className='flex flex-col w-full h-full max-w-4xl p-8 mx-auto md:px-20 2xl:max-w-7xl justify-evenly'>
 					<Component {...pageProps} />
 				</div>
 			</div>

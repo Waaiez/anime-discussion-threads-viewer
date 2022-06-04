@@ -16,9 +16,7 @@ function keepPrevData(useSWRNext) {
 		const dataOrPrevData =
 			swr.data === undefined ? prevDataRef.current : swr.data;
 
-		return Object.assign({}, swr, {
-			data: dataOrPrevData,
-		});
+		return { ...swr, data: dataOrPrevData };
 	};
 }
 
@@ -49,7 +47,7 @@ const urlBuilder = (query, limit) => {
 			url = `https://www.reddit.com/user/AutoLovepon.json?limit=${limit}`;
 			break;
 		case 'allAnime': {
-			let search = query.search
+			const search = query.search
 				? encodeURIComponent(query.search.trim())
 				: '';
 			url = `https://www.reddit.com/r/anime/search.json?q=${search}&restrict_sr=1&sr_nsfw=&sort=new`;
@@ -72,7 +70,7 @@ export default function useReddit(
 	const { data, error } = useSWR(redditURL, fetcher, {
 		refreshInterval: 600000,
 		use: [keepPrevData],
-		onErrorRetry: (error, revalidate, { retryCount }) => {
+		onErrorRetry: (revalidate, { retryCount }) => {
 			if (error.status === 404) return;
 
 			if (retryCount >= 10) return;

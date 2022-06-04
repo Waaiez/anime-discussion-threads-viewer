@@ -1,4 +1,6 @@
-import { RecentThreads, Search } from '../components';
+// import { RecentThreads, Search } from '../components';
+
+import { RecentThreads } from '../components';
 import { useSearch } from '../context/SearchContext';
 
 export default function HomePage() {
