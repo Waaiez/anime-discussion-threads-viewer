@@ -1,16 +1,13 @@
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
-import useReddit from '../../hooks/useReddit';
+import useRedditSearch from '../../hooks/useRedditSearch';
 import showToast from '../../lib/showToast';
 
 export default function Data({ anilistData }) {
 	const [redditData, setRedditData] = useState(null);
 
-	const { data, error } = useReddit(
-		{ type: 'allAnime', search: anilistData?.title.romaji },
-		5
-	);
+	const { data, error } = useRedditSearch(anilistData?.title.romaji);
 
 	if (error)
 		showToast({
@@ -61,7 +58,7 @@ export default function Data({ anilistData }) {
 						<p className='text-slate-200'>
 							{redditData?.map((thread) => (
 								<a key={thread.data.url} href={thread.data.url}>
-									{thread.data.title}
+									{thread.data.title} <br />
 								</a>
 							))}
 						</p>

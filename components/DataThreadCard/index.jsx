@@ -3,6 +3,7 @@ import { useEffect, useReducer } from 'react';
 import useAnilist from '../../hooks/useAnilist';
 import mediaQuery from '../../lib/anilist-api/queries/media';
 import showToast from '../../lib/showToast';
+import SkeletonCard from './../SkeletonCard/index';
 import AnilistThreadCard from '../AnilistThreadCard';
 
 const initialState = {
@@ -27,7 +28,7 @@ function reducer(state, action) {
 	}
 }
 
-export default function Data({ post }) {
+export default function DataThreadCard({ post }) {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { animeData, anilistData } = state;
 
@@ -44,20 +45,13 @@ export default function Data({ post }) {
 		? ` Season ${animeData.anime_season}`
 		: '';
 
-	const { data, error } = useAnilist(
+	const { data, isLoading, error } = useAnilist(
 		mediaQuery,
 		animeData && {
 			search: animeData.anime_title + season,
-		}
+		},
+		[animeData]
 	);
-
-	if (error) {
-		showToast({
-			errorName: 'Anilist Error',
-			errorStatus: `Status Code: ${error.response.status}`,
-			errorId: 'anilistError',
-		});
-	}
 
 	useEffect(() => {
 		if (data) {
@@ -67,6 +61,23 @@ export default function Data({ post }) {
 			});
 		}
 	}, [data]);
+
+	if (isLoading) return <SkeletonCard animation='pulse' />;
+
+	if (error) {
+		console.warn(error);
+		showToast({
+			errorName: 'Anilist Error',
+			errorStatus: `Status Code: ${error.response?.status}`,
+			errorId: 'anilistError',
+		});
+
+		return (
+			<div className='opacity-30'>
+				<SkeletonCard animation='none' />
+			</div>
+		);
+	}
 
 	return (
 		<AnilistThreadCard

@@ -9,7 +9,7 @@ export default function Data({ data }) {
 					<Image
 						src={
 							data.coverImage.large ||
-							'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mOcv3j9fwYiAOOoQvoqBACcpB1r8c0b1gAAAABJRU5ErkJggg=='
+							'https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/default.jpg'
 						}
 						alt={`${data.title.romaji} Image`}
 						layout='fill'

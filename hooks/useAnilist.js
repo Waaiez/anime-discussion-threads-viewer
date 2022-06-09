@@ -35,7 +35,7 @@ export default function useAnilist(query, variables, deps = []) {
 			revalidateOnFocus: false,
 			revalidateOnReconnect: false,
 			use: [keepPrevData],
-			onErrorRetry: (revalidate, { retryCount }) => {
+			onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
 				if (error?.response?.status === 404) return;
 
 				if (error?.response?.status === 429) return;
@@ -49,7 +49,7 @@ export default function useAnilist(query, variables, deps = []) {
 
 	useEffect(() => {
 		setMounted(true);
-	}, [deps]);
+	}, deps);
 
-	return { data, error };
+	return { data, isLoading: !error && !data, error };
 }

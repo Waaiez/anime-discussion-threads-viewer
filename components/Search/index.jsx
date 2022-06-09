@@ -6,7 +6,7 @@ import { useSearch } from '../../context/SearchContext';
 import useAnilist from '../../hooks/useAnilist';
 import mediaQuery from '../../lib/anilist-api/queries/media';
 import showToast from '../../lib/showToast';
-import SkeletonCard from '../SkeletonCard';
+import SkeletonLoader from './../SkeletonLoader';
 import Data from './data';
 
 const initialState = {
@@ -45,8 +45,6 @@ export default function Search() {
 
 	const debouncedSearchQuery = useDebounce(searchQuery, 1000);
 
-	const emptyArray = new Array(4).fill(0);
-
 	const { data, error } = useAnilist(
 		mediaQuery,
 		{
@@ -54,14 +52,6 @@ export default function Search() {
 		},
 		[debouncedSearchQuery]
 	);
-
-	if (error) {
-		showToast({
-			errorName: 'Anilist Error',
-			errorStatus: `Status Code: ${error.response.status}`,
-			errorId: 'anilistError',
-		});
-	}
 
 	useEffect(() => {
 		if (data) {
@@ -75,17 +65,6 @@ export default function Search() {
 			});
 		}
 	}, [data]);
-
-	useEffect(() => {
-		dispatch({
-			type: 'updateValues',
-			payload: { key: 'searchQuery', value: '' },
-		});
-		dispatch({
-			type: 'updateValues',
-			payload: { key: 'anilistData', value: null },
-		});
-	}, []);
 
 	useEffect(() => {
 		if (!searchQuery)
@@ -112,6 +91,19 @@ export default function Search() {
 			});
 		}
 	}, [searchQuery]);
+
+	if (error) {
+		showToast({
+			errorName: 'Anilist Error',
+			errorStatus: `Status Code: ${error.response.status}`,
+			errorId: 'anilistError',
+		});
+		return (
+			<div className='opacity-30'>
+				<SkeletonLoader limit={4} animation='none' />
+			</div>
+		);
+	}
 
 	return (
 		<>
@@ -149,16 +141,17 @@ export default function Search() {
 					</div>
 				</>
 			)}
+
 			<div className='w-full py-3'>
 				<ul
 					role='list'
 					className='grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8'>
-					{isLoading &&
-						emptyArray.map((_, i) => <SkeletonCard key={i} />)}
-					{!isLoading &&
-						anilistData?.map((item) => {
-							return <Data key={item.title.romaji} data={item} />;
-						})}
+					{isLoading && (
+						<SkeletonLoader limit={4} animation='pulse' />
+					)}
+					{anilistData?.map((item) => {
+						return <Data key={item.title.romaji} data={item} />;
+					})}
 				</ul>
 			</div>
 		</>

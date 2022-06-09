@@ -15,19 +15,18 @@ export default function AnimeDetails({ id }) {
 		sort: 'TRENDING_DESC',
 	});
 
-	if (error) {
-		showToast({
-			errorName: 'Anilist Error',
-			errorStatus: `Status Code: ${error.response.status}`,
-			errorId: 'anilistError',
-		});
-	}
-
 	useEffect(() => {
 		if (data) {
 			setAnilistData(data.Page.media[0]);
 		}
 	}, [data]);
+
+	if (error)
+		showToast({
+			errorName: 'Anilist Error',
+			errorStatus: `Status Code: ${error.response.status}`,
+			errorId: 'anilistError',
+		});
 
 	return (
 		<div className='container px-6 mx-auto'>

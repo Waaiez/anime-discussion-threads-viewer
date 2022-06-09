@@ -20,8 +20,8 @@ function keepPrevData(useSWRNext) {
 	};
 }
 
-const fetcher = async (...args) => {
-	const response = await fetch(...args);
+const fetcher = async (url, search) => {
+	const response = await fetch(url);
 
 	if (!response.ok) {
 		const error = new Error('An error occurred while fetching the data.');
@@ -32,16 +32,22 @@ const fetcher = async (...args) => {
 
 	let data = await response.json();
 
-	data = data.data.children.filter(
-		(post) => post.data.link_flair_text === 'Episode'
-	);
+	data = data.data.children.filter((post) => {
+		return (
+			post.data.link_flair_text === 'Episode' &&
+			post.data.title.includes(search)
+		);
+	});
 
 	return data;
 };
 
-export default function useReddit() {
+export default function useRedditSearch(search) {
 	const { data, error } = useSWR(
-		'https://www.reddit.com/user/AutoLovepon.json?limit=100',
+		[
+			`https://www.reddit.com/r/anime/search.json?q="${search}"&restrict_sr=1&sr_nsfw=&sort=new&limit=100`,
+			search,
+		],
 		fetcher,
 		{
 			refreshInterval: 600000,
