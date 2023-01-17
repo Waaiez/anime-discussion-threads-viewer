@@ -6,10 +6,10 @@
 	import { AppShell, Toast } from '@skeletonlabs/skeleton';
 </script>
 
-<Toast />
+<Toast position="tr" />
 
 <AppShell>
-	<div class="max-w-3xl md:max-w-5xl mx-auto py-16 px-6 lg:px-8 select-none flex flex-col h-full">
+	<div class="max-w-3xl md:max-w-6xl mx-auto py-16 px-6 lg:px-8 select-none flex flex-col h-full">
 		<slot />
 	</div>
 </AppShell>

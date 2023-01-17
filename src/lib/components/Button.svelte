@@ -13,6 +13,11 @@
 	};
 </script>
 
-<a href={link} class={`btn btn-ghost-${colour} btn-base rounded-lg w-full !ring-0`}>
+<a
+	href={link}
+	class={`btn btn-base rounded-lg w-full !ring-0 ${
+		colour === 'primary' ? 'btn-ghost-primary' : 'btn-ghost-secondary'
+	}`}
+>
 	<Icon src={iconMapping[icon]} size="40" />
 </a>
