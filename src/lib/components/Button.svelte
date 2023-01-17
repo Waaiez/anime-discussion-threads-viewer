@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Search, ArrowRightS, ArrowLeftS } from '@steeze-ui/remix-icons';
+	import { ChevronRight, ChevronLeft, MagnifyingGlass } from '@steeze-ui/heroicons';
 
 	export let icon: 'rightChevron' | 'leftChevron' | 'search';
 	export let colour: 'primary' | 'secondary';
 	export let link: string;
 
 	let iconMapping = {
-		rightChevron: ArrowRightS,
-		leftChevron: ArrowLeftS,
-		search: Search
+		rightChevron: ChevronRight,
+		leftChevron: ChevronLeft,
+		search: MagnifyingGlass
 	};
 </script>
 
