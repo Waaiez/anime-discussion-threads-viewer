@@ -5,6 +5,7 @@ export interface RedditPost {
 		title: string;
 		url: string;
 		created: number;
+		num_comments: number;
 	};
 }
 

@@ -16,7 +16,7 @@
 <a
 	href={link}
 	class={`btn btn-base rounded-lg w-full !ring-0 ${
-		colour === 'primary' ? 'btn-ghost-primary' : 'btn-ghost-secondary'
+		colour === 'primary' ? 'variant-ghost-primary' : 'variant-ghost-secondary'
 	}`}
 >
 	<Icon src={iconMapping[icon]} size="40" />
