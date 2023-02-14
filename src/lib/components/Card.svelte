@@ -76,7 +76,7 @@
 	const dateCreated = new Date(post.data.created * 1000);
 </script>
 
-<div class="relative group cursor-pointer aspect-h-16 aspect-w-9">
+<div class="relative group cursor-pointer h-full w-full">
 	<a
 		href={post.data.url}
 		class="group !no-underline flex flex-col justify-between"
@@ -84,9 +84,9 @@
 		rel="noopener noreferrer"
 	>
 		<img
-			src={anilistData.Media.coverImage.extraLarge ?? anilistData.Media.coverImage.large}
+			src={anilistData.Media.coverImage.extraLarge || anilistData.Media.coverImage.large}
 			alt={animeData.anime_title + ' Poster'}
-			class="hover:opacity-75 transition ease-in-out duration-150 object-cover h-full w-full rounded-lg shadow-xl group-hover:ring-2 group-hover:ring-slate-100"
+			class="hover:opacity-75 transition ease-in-out duration-150 object-cover h-96 w-full rounded-lg shadow-xl group-hover:ring-2 group-hover:ring-slate-100"
 		/>
 		<div class="space-y-1">
 			<div class="mt-4 truncate text-slate-100">

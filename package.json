@@ -41,6 +41,7 @@
 	"dependencies": {
 		"bottleneck": "^2.19.5",
 		"graphql": "^16.6.0",
-		"graphql-request": "^5.1.0"
+		"graphql-request": "^5.1.0",
+		"svelte-inview": "^3.0.2"
 	}
 }
