@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { RedditPost } from '$lib/interfaces/Reddit';
+	import { querySearchById } from '$lib/modules/anilist/queries';
+	import { anilistSearch } from '$lib/modules/anilist/search';
 	import { formatTimeAgo } from '$lib/utils/formatTime';
 
 	import { onMount } from 'svelte';
@@ -16,6 +18,8 @@
 	let anilistData = {
 		Media: {
 			coverImage: {
+				extraLarge:
+					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mOcv3j9fwYiAOOoQvoqBACcpB1r8c0b1gAAAABJRU5ErkJggg==',
 				large:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mOcv3j9fwYiAOOoQvoqBACcpB1r8c0b1gAAAABJRU5ErkJggg=='
 			}
@@ -28,14 +32,17 @@
 		episode_number: ''
 	};
 
-	// async function getCoverImage(anilistId) {
-	// 	console.log('Anilist request');
-	// 	const res = await anilistRequest(querySearchById, { id: anilistId });
-	// 	if (res.error) {
-	// 		console.log('error');
-	// 	}
-	// 	anilistData = res;
-	// }
+	async function getCoverImage(anilistId: string) {
+		console.log('Anilist request');
+		const res = await anilistSearch(querySearchById, { id: anilistId });
+		if (res.error) {
+			console.log('error');
+		} else {
+			console.log(res);
+
+			anilistData = res;
+		}
+	}
 
 	onMount(async () => {
 		if (postSelfText !== '[removed]') {
@@ -49,10 +56,9 @@
 		}
 
 		if (anilistId) {
-			// await getCoverImage(anilistId);
-			anilistData.Media.coverImage.large =
-				'https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx130511-4O6dF8oaiVJh.jpg';
+			await getCoverImage(anilistId);
 		} else {
+			anilistData.Media.coverImage.extraLarge = '';
 			anilistData.Media.coverImage.large =
 				'https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/default.jpg';
 		}
@@ -78,7 +84,7 @@
 		rel="noopener noreferrer"
 	>
 		<img
-			src={anilistData.Media.coverImage.large}
+			src={anilistData.Media.coverImage.extraLarge ?? anilistData.Media.coverImage.large}
 			alt={animeData.anime_title + ' Poster'}
 			class="hover:opacity-75 transition ease-in-out duration-150 object-cover h-full w-full rounded-lg shadow-xl group-hover:ring-2 group-hover:ring-slate-100"
 		/>

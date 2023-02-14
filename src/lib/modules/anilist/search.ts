@@ -1,27 +1,29 @@
 import { GraphQLClient } from 'graphql-request';
-import type { ToastMessage } from '@brainandbones/skeleton';
-import { toastStore } from '@brainandbones/skeleton';
+import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 import Bottleneck from 'bottleneck';
 
 const limiter = new Bottleneck({ maxConcurrent: 1, minTime: 5000 });
-const limit = limiter.wrap(anilistRequest);
+// @ts-ignore
+const limit = limiter.wrap(anilistSearch);
 
 const client = new GraphQLClient('https://graphql.anilist.co', {
 	redirect: 'follow'
 });
 
 // TODO: better types
-export async function anilistRequest(query: string, variables: object) {
+// @ts-ignore
+export async function anilistSearch(query: string, variables: object) {
 	try {
 		const data = await client.request(query, variables);
 		return data;
 	} catch (error) {
 		console.log('Anilist Error', error);
 
-		const toastDetails: ToastMessage = {
+		const toastDetails: ToastSettings = {
 			message: 'There was an error retrieving data from Anilist',
 			autohide: true,
-			timeout: 5000
+			timeout: 5000,
+			preset: 'error'
 		};
 		toastStore.trigger(toastDetails);
 
