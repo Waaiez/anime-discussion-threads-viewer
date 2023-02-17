@@ -64,15 +64,15 @@
 </script>
 
 <div class="m-auto w-full h-full items-center flex flex-col">
-	<div class="flex items-center justify-evenly mb-12 max-w-xl mx-auto gap-5 w-full">
+	<div
+		class="flex flex-col md:flex-row items-center justify-evenly mb-12 max-w-xl mx-auto gap-5 w-full"
+	>
 		<Button icon="leftChevron" colour="primary" link="/" />
 
 		<div
 			class="input-group input-group-divider grid-cols-[auto_1fr_auto] !rounded-lg !bg-transparent p-2"
 		>
-			<div class="">
-				<Icon src={MagnifyingGlass} size="35" className="w-full" />
-			</div>
+			<Icon src={MagnifyingGlass} size="35" className="w-full" />
 			<input
 				type="search"
 				placeholder="Search..."
@@ -83,7 +83,7 @@
 		</div>
 	</div>
 
-	<div class="w-full py-3">
+	<!-- <div class="w-full py-3">
 		<ul class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 xl:gap-x-8">
 			{#if !searchData.length}
 				{#each trendingData as result}
@@ -103,5 +103,25 @@
 				{/each}
 			{/if}
 		</ul>
+	</div> -->
+
+	<div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 h-full w-full">
+		{#if !searchData.length}
+			{#each trendingData as result}
+				<AnilistCard {result} />
+			{:else}
+				{#each Array(4) as _}
+					<SkeletonCard />
+				{/each}
+			{/each}
+		{:else}
+			{#each searchData as result}
+				<AnilistCard {result} />
+			{:else}
+				{#each Array(4) as _}
+					<SkeletonCard />
+				{/each}
+			{/each}
+		{/if}
 	</div>
 </div>

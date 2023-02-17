@@ -39,7 +39,7 @@
 </script>
 
 <div class="m-auto w-full h-full items-center flex flex-col">
-	<div class="flex items-center justify-evenly mb-12 max-w-xl mx-auto gap-5 w-full">
+	<div class="flex flex-col md:flex-row items-center justify-evenly mb-12 max-w-xl mx-auto gap-5 w-full">
 		<Button icon="leftChevron" colour="primary" link="/" />
 		<Button icon="search" colour="secondary" link="/search" />
 	</div>

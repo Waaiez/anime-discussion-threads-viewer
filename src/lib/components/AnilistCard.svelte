@@ -3,24 +3,17 @@
 	export let result: any;
 </script>
 
-<li class="relative cursor-pointer select-none">
-	<a href={'/anime/' + result.id} class="group card">
-		<div class="bg-transparent">
-			<div class="shadow-xl group-hover:ring-2 group-hover:ring-slate-100 rounded-lg">
-				<figure class="aspect-w-2 aspect-h-3 ">
-					<img
-						src={result.coverImage.large}
-						alt={result.title.romaji}
-						class="object-cover rounded-lg"
-					/>
-				</figure>
-			</div>
-
-			<div class="select-none card-body !p-0">
-				<p class="block mt-2 truncate pointer-events-none !text-slate-100">
-					{@html result.title.romaji}
-				</p>
+<div class="relative group cursor-pointer h-full w-full">
+	<a href={'/anime/' + result.id} class="group !no-underline flex flex-col justify-between">
+		<img
+			src={result.coverImage.large}
+			alt={result.title.romaji + ' Poster'}
+			class="hover:opacity-75 transition ease-in-out duration-150 object-cover h-96 w-full rounded-lg shadow-xl group-hover:ring-2 group-hover:ring-slate-100"
+		/>
+		<div class="space-y-1">
+			<div class="mt-4 truncate text-slate-100">
+				{@html result.title.romaji}
 			</div>
 		</div>
 	</a>
-</li>
+</div>
