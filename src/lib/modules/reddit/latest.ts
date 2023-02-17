@@ -14,8 +14,11 @@ export async function getLatestRedditData() {
 		const data: RedditData = await response.json();
 		console.log('Data parsed from reddit');
 
-		const filteredData = data.data.children.filter(
-			(post: RedditPost) => post.data.link_flair_text === 'Episode'
+		let filteredData = data.data.children.filter(
+			(post: RedditPost) =>
+				post.data.link_flair_text === 'Episode' &&
+				post.data.selftext !== '[removed]' &&
+				!post.data.title.includes('Megathread')
 		);
 		console.log('Data filtered from reddit');
 
