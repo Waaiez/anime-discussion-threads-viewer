@@ -3,6 +3,8 @@
 	import { querySearchById } from '$lib/modules/anilist/queries';
 	import { anilistSearch } from '$lib/modules/anilist/search';
 	import { formatTimeAgo } from '$lib/utils/formatTime';
+	import { cachedAnilistData } from '$lib/stores';
+	import { get } from 'svelte/store';
 
 	import { onMount } from 'svelte';
 
@@ -45,23 +47,34 @@
 	}
 
 	onMount(async () => {
-		if (postSelfText !== '[removed]') {
-			if (!postTitle.includes('Megathread')) {
-				let resultsUrl = postSelfText.match(/https:\/\/anilist\.co\/anime\/.*/);
-				if (resultsUrl) anilistUrl = resultsUrl[0] as string;
+		let resultsUrl = postSelfText.match(/https:\/\/anilist\.co\/anime\/.*/);
+		if (resultsUrl) anilistUrl = resultsUrl[0] as string;
 
-				let resultsId = anilistUrl.match(/\d+/);
-				if (resultsId) anilistId = resultsId[0] || '';
-			}
-		}
+		let resultsId = anilistUrl.match(/\d+/);
+		if (resultsId) anilistId = resultsId[0] || '';
 
 		if (anilistId) {
-			await getCoverImage(anilistId);
+			// @ts-ignore
+			const cachedData = $cachedAnilistData[anilistId];
+
+			if (!cachedData) {
+				await getCoverImage(anilistId);
+			} else {
+				// @ts-ignore
+				anilistData = $cachedAnilistData[anilistId];
+			}
 		} else {
 			anilistData.Media.coverImage.extraLarge = '';
 			anilistData.Media.coverImage.large =
 				'https://s4.anilist.co/file/anilistcdn/media/manga/cover/medium/default.jpg';
 		}
+
+		cachedAnilistData.update((currentData) => {
+			return {
+				...currentData,
+				[anilistId]: anilistData
+			};
+		});
 	});
 
 	if (typeof window !== 'undefined') {
