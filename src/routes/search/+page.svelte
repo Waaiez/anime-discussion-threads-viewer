@@ -1,15 +1,12 @@
 <script lang="ts">
+	import Button from '$lib/components/Button.svelte';
+	import { Icon } from '@steeze-ui/svelte-icon';
+	import { MagnifyingGlass } from '@steeze-ui/heroicons';
 	import { onMount } from 'svelte';
-
-	import FaSolidSearch from 'svelte-icons-pack/fa/FaSolidSearch';
-	import FaSolidChevronLeft from 'svelte-icons-pack/fa/FaSolidChevronLeft';
-	import Icon from 'svelte-icons-pack/Icon.svelte';
-
-	import { goto } from '$app/navigation';
-	import SkeletonCard from '$lib/components/SkeletonCard.svelte';
-	import { anilistRequest } from '$lib/modules/anilist';
-	import { querySearchByString, queryTrending } from '$lib/modules/anilist-queries';
+	import { anilistSearch } from '$lib/modules/anilist/search';
+	import { querySearchByString, queryTrending } from '$lib/modules/anilist/queries';
 	import AnilistCard from '$lib/components/AnilistCard.svelte';
+	import SkeletonCard from '$lib/components/SkeletonCard.svelte';
 
 	let inputSearch: HTMLInputElement;
 
@@ -19,22 +16,31 @@
 	$: isSearching = debounceInput.length > 0;
 
 	let timer: NodeJS.Timeout;
-	// @ts-ignore
-	const debounce = (e) => {
+
+	const debounce = (e: any): void => {
 		clearTimeout(timer);
 		timer = setTimeout(() => {
-			debounceInput = e.target.value;
+			debounceInput = (e.target as HTMLInputElement).value;
 		}, 1000);
 	};
 
-	// TODO: better types for anilist data
-	let trendingData = [];
-	let searchData = [];
+	type AnilistData = {
+		id: number;
+		title: {
+			romaji: string;
+		};
+		coverImage: {
+			large: string;
+		};
+	};
+
+	let trendingData: AnilistData[] = [];
+	let searchData: AnilistData[] = [];
 
 	onMount(async () => {
 		inputSearch.focus();
 
-		const res = await anilistRequest(queryTrending, {});
+		const res = await anilistSearch(queryTrending, {});
 		if (res.error) {
 			console.log('error');
 		}
@@ -44,7 +50,7 @@
 	$: {
 		if (isSearching) {
 			async function search() {
-				const res = await anilistRequest(querySearchByString, { search: debounceInput });
+				const res = await anilistSearch(querySearchByString, { search: debounceInput });
 				if (res.error) {
 					console.log('error');
 				}
@@ -57,42 +63,32 @@
 	}
 </script>
 
-<div class="w-full flex gap-5 p-4 max-w-2xl">
-	<button
-		class="btn btn-lg bg-primary-500/20 ring-primary-500/50 text-white rounded-lg"
-		on:click={() => goto('/')}
+<div class="m-auto w-full h-full items-center flex flex-col">
+	<div
+		class="flex flex-col md:flex-row items-center justify-evenly mb-12 max-w-xl mx-auto gap-5 w-full"
 	>
-		<div class="h-full w-full justify-center flex">
-			<Icon src={FaSolidChevronLeft} color="white" size="32" className="w-full" />
-		</div>
-	</button>
+		<Button icon="leftChevron" colour="primary" link="/" />
 
-	<fieldset class="flex justify-center w-full text-slate-100">
-		<label for="Search" class="hidden"> Search </label>
-		<div class="relative w-full h-14">
-			<span class="absolute inset-y-0 left-0 flex items-center pl-2 mx-1">
-				<Icon src={FaSolidSearch} color="white" size="20" className="w-full" />
-			</span>
+		<div
+			class="input-group input-group-divider grid-cols-[auto_1fr_auto] !rounded-lg !bg-transparent p-2"
+		>
+			<Icon src={MagnifyingGlass} size="35" className="w-full" />
 			<input
 				type="search"
-				name="Search"
 				placeholder="Search..."
-				class="w-full h-full py-2 pl-10 text-base transition ease-in-out !bg-transparent border border-solid rounded-md sm:w-full focus:outline-none border-slate-600"
 				autoComplete="off"
 				bind:this={inputSearch}
 				on:input={debounce}
 			/>
 		</div>
-	</fieldset>
-</div>
+	</div>
 
-<div class="w-full py-3">
-	<ul class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 xl:gap-x-8">
+	<div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 h-full w-full">
 		{#if !searchData.length}
 			{#each trendingData as result}
 				<AnilistCard {result} />
 			{:else}
-				{#each Array(4) as _, index (index)}
+				{#each Array(4) as _}
 					<SkeletonCard />
 				{/each}
 			{/each}
@@ -100,10 +96,10 @@
 			{#each searchData as result}
 				<AnilistCard {result} />
 			{:else}
-				{#each Array(4) as _, index (index)}
+				{#each Array(4) as _}
 					<SkeletonCard />
 				{/each}
 			{/each}
 		{/if}
-	</ul>
+	</div>
 </div>

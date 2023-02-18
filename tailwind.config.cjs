@@ -3,7 +3,7 @@ module.exports = {
 	darkMode: 'class',
 	content: [
 		'./src/**/*.{html,js,svelte,ts}',
-		'./node_modules/@brainandbones/skeleton/**/*.{html,js,svelte,ts}'
+		require('path').join(require.resolve('@skeletonlabs/skeleton'), '../**/*.{html,js,svelte,ts}')
 	],
 	theme: {
 		aspectRatio: {
@@ -29,8 +29,10 @@ module.exports = {
 		}
 	},
 	plugins: [
+		require('@tailwindcss/forms'),
 		require('@tailwindcss/aspect-ratio'),
 		require('@tailwindcss/typography'),
-		require('@brainandbones/skeleton/tailwind/theme.cjs')
+		require('@tailwindcss/line-clamp'),
+		...require('@skeletonlabs/skeleton/tailwind/skeleton.cjs')()
 	]
 };
