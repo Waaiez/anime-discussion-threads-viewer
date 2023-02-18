@@ -83,28 +83,6 @@
 		</div>
 	</div>
 
-	<!-- <div class="w-full py-3">
-		<ul class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4 xl:gap-x-8">
-			{#if !searchData.length}
-				{#each trendingData as result}
-					<AnilistCard {result} />
-				{:else}
-					{#each Array(4) as _}
-						<SkeletonCard />
-					{/each}
-				{/each}
-			{:else}
-				{#each searchData as result}
-					<AnilistCard {result} />
-				{:else}
-					{#each Array(4) as _}
-						<SkeletonCard />
-					{/each}
-				{/each}
-			{/if}
-		</ul>
-	</div> -->
-
 	<div class="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-8 h-full w-full">
 		{#if !searchData.length}
 			{#each trendingData as result}

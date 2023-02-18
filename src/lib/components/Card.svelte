@@ -4,7 +4,6 @@
 	import { anilistSearch } from '$lib/modules/anilist/search';
 	import { formatTimeAgo } from '$lib/utils/formatTime';
 	import { cachedAnilistData } from '$lib/stores';
-	import { get } from 'svelte/store';
 
 	import { onMount } from 'svelte';
 
